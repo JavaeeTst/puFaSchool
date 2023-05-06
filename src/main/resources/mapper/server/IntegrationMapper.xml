@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaIntegrateDao">
+
+    <select id="findIntegrationByUserIdAndScoreIdAndScoreType" resultType="com.pufaschool.conn.domain.PuFaIntegration">
+        select user_id, score_id, score_type, get_integration from t_integration where user_id=#{userId} and score_id=#{scoreId} and score_type=#{scoreType}
+    </select>
+    <update id="modifyUserIntegration">
+        update t_user set total_integration=total_integration+#{integration} where id=#{userid}
+    </update>
+</mapper>

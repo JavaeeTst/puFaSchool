@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.client.dao.ClientUserDao">
+
+    <update id="modifyPassword" parameterType="com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo">
+        update t_user
+        set password=#{newPassword}
+        where username = #{username}
+    </update>
+    <select id="findUserByStatus" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select id,
+               username,
+               real_name,
+               password,
+               phone_num,
+               avatar,
+               status,
+               email,
+               total_integration,
+               create_time,
+               update_time,
+               is_delete,
+               id_card,
+               native,
+               home_address
+        from t_user
+        where status = #{status}
+          and is_delete = 0
+    </select>
+    <select id="findPageList" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select id,
+               username,
+               real_name,
+               password,
+               phone_num,
+               avatar,
+               status,
+               email,
+               total_integration,
+               create_time,
+               update_time,
+               is_delete,
+               id_card,
+               native,
+               home_address
+        from t_user
+    </select>
+    <select id="findByUserFiled" parameterType="com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo"
+            resultType="com.pufaschool.conn.domain.PuFaUser">
+        select id, username, real_name, password, phone_num, avatar, status, email, total_integration, create_time,
+        update_time, is_delete, id_card, native, home_address from t_user
+
+        <where>
+            <if test="vo.key!=null and vo.key!=''">
+                username like concat('%',#{vo.key},'%')
+                or real_name like concat('%',#{vo.key},'%')
+                or phone_num like concat('%',#{vo.key},'%')
+                or email like concat('%',#{vo.key},'%')
+                or id_card like concat('%',#{vo.key},'%')
+                or native like concat('%',#{vo.key},'%')
+                or home_address like concat('%',#{vo.key},'%')
+            </if>
+        </where>
+    </select>
+    <update id="passwordRetrieval">
+        update t_user
+        set password=#{vo.newPassword}
+        where email = #{email}
+    </update>
+    <select id="findUserByCreateTime" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select id,
+               username,
+               real_name,
+               password,
+               phone_num,
+               avatar,
+               status,
+               email,
+               total_integration,
+               create_time,
+               update_time,
+               is_delete,
+               id_card,
+               native,
+               home_address
+        from t_user
+        where create_time like concat('%', #{date}, '%')
+    </select>
+    <select id="findUserAll" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select id,
+               username,
+               real_name,
+               password,
+               phone_num,
+               avatar,
+               status,
+               email,
+               total_integration,
+               create_time,
+               update_time,
+               is_delete,
+               id_card,
+               native,
+               home_address
+        from t_user
+    </select>
+    <select id="findUserByAvatar" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select id,
+               username,
+               real_name,
+               password,
+               phone_num,
+               avatar,
+               status,
+               email,
+               total_integration,
+               create_time,
+               update_time,
+               is_delete,
+               id_card,
+               native,
+               home_address
+        from t_user
+        where avatar = #{avatar}
+    </select>
+    <select id="findAdminAll" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select u.id,
+               username,
+               u.real_name,
+               password,
+               phone_num,
+               avatar,
+               u.status,
+               email,
+               total_integration,
+               u.create_time,
+               u.update_time,
+               id_card,
+               native,
+               home_address
+        from t_user as u
+                 inner join t_user_role as ur on u.id = ur.user_id
+                 inner join t_role as r on r.id = ur.role_id
+        where r.role_code = 'ADMIN'
+    </select>
+
+</mapper>

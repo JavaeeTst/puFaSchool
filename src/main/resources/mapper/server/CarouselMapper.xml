@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaCarouselDao">
+
+    <select id="findPageList" resultType="com.pufaschool.conn.domain.PuFaCarousel">
+        select id,
+               picture_name,
+               picture_path,
+               status,
+               sort,
+               uploader,
+               description,
+               source,
+               create_time,
+               update_time,
+               is_delete
+        from t_carousel
+
+        where is_delete = 0
+        order by sort desc
+    </select>
+    <select id="findCarouselByStatus" resultType="com.pufaschool.conn.domain.PuFaCarousel">
+        select id,
+               picture_name,
+               status,
+               picture_path,
+               sort,
+               uploader,
+               description,
+               source,
+               create_time,
+               update_time,
+               is_delete
+        from t_carousel
+        where status = #{status}
+    </select>
+    <select id="findCarouselByCreateTime" resultType="com.pufaschool.conn.domain.PuFaCarousel">
+        select id,
+               picture_name,
+               picture_path,
+               status,
+               sort,
+               uploader,
+               description,
+               source,
+               create_time,
+               update_time,
+               is_delete
+        from t_carousel
+        where create_time like concat('%', #{date}, '%')
+    </select>
+    <select id="findCarouselAll" resultType="com.pufaschool.conn.domain.PuFaCarousel">
+        select id,
+               picture_path,
+               picture_name,
+               status,
+               sort,
+               uploader,
+               description,
+               source,
+               create_time,
+               update_time,
+               is_delete
+        from t_carousel
+    </select>
+    <select id="findCarouselByPicturePath" resultType="com.pufaschool.conn.domain.PuFaCarousel">
+        select id,
+               picture_path,
+               picture_name,
+               status,
+               sort,
+               uploader,
+               description,
+               source,
+               create_time,
+               update_time,
+               is_delete
+        from t_carousel
+        where picture_path = #{path}
+    </select>
+</mapper>

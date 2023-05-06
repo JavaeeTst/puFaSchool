@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaLogDao">
+
+    <insert id="adminLog" parameterType="com.pufaschool.conn.domain.PuFaLog">
+        insert into t_admin_log(user_id, log_info) value (#{userId}, #{logInfo})
+    </insert>
+    <insert id="userLog" parameterType="com.pufaschool.conn.domain.PuFaLog">
+        insert into t_user_log(user_id, log_info) value (#{userId}, #{logInfo})
+    </insert>
+
+    <select id="findAdminLogAll" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time
+        from t_admin_log
+    </select>
+
+    <select id="findUserLogAll" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time
+        from t_user_log
+    </select>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaVideoDao">
+
+    <select id="findPageList" resultType="com.pufaschool.conn.domain.PuFaVideo">
+        select id,
+               title,
+               video_path,
+               video_name,
+               video_status,
+               video_explain,
+               video_description,
+               video_uploader,
+               video_cover,
+               lecturer,
+               learn_type,
+               integration,
+               update_time,
+               create_time,
+               is_delete
+        from t_video
+
+        where is_delete = 0
+    </select>
+    <select id="findVideoAll" resultType="com.pufaschool.conn.domain.PuFaVideo">
+        select id,
+               title,
+               video_path,
+               video_name,
+               video_status,
+               video_explain,
+               video_description,
+               video_uploader,
+               integration,
+               learn_type,
+               update_time,
+               create_time,
+               is_delete
+        from t_video
+    </select>
+    <select id="findVideoByVideoPath" resultType="com.pufaschool.conn.domain.PuFaVideo">
+        select id,
+               title,
+               video_path,
+               video_name,
+               video_status,
+               video_explain,
+               video_description,
+               video_uploader,
+               learn_type,
+               integration,
+               update_time,
+               create_time,
+               is_delete
+        from t_video
+        where video_path = #{path}
+    </select>
+</mapper>

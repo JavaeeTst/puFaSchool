@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.client.dao.ClientLearnRecordDao">
+
+    <select id="findLearnRecordByLearnType" resultType="com.pufaschool.conn.domain.PuFaLearnRecord">
+        select user_id, learn_type, create_time, delete_time, url
+        from t_learn_record
+        where user_id = #{userId}
+          and learn_type = #{learnType}
+    </select>
+
+    <select id="findLearnRecordByLearnTypeAndTime" resultType="com.pufaschool.conn.domain.PuFaLearnRecord">
+        select user_id, learn_type, create_time, delete_time, url
+        from t_learn_record
+        where user_id = #{userId}
+          and learn_type = #{learnType}
+          and create_time = #{learnDate}
+    </select>
+
+</mapper>

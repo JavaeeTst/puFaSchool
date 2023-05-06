@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaRoleDao">
+
+    <select id="findByUsernameOrUserId" resultType="com.pufaschool.conn.domain.PuFaRole">
+        select r.role_name,r.role_code,r.description from t_user as u
+        inner join t_user_role as ur on u.id=ur.user_id
+        inner join t_role as r on r.id=ur.role_id
+        <where>
+            <if test="username!=null and username!=''">
+                and u.username=#{username}
+            </if>
+            <if test="userId!=null and userId!=''">
+                or u.id=#{userId}
+            </if>
+        </where>
+
+    </select>
+    <insert id="assignRole">
+        insert into t_user_role(role_id, user_id)
+        values (#{roleId}, #{userId});
+    </insert>
+    <update id="modifyByUserIdAndRoleId" parameterType="com.pufaschool.conn.domain.vo.SysUserRoleVo">
+        update t_user_role
+        set is_cancel=#{vo.isCancel}
+        where user_id = #{vo.userId}
+          and role_id = #{vo.roleId}
+    </update>
+</mapper>

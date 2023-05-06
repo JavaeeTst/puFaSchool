@@ -1,0 +1,93 @@
+spring:
+  datasource:
+    driver: com.mysql.jdbc.cj.Driver
+    username: root
+    password: 1526544923
+    url: jdbc:mysql://localhost:3306/pufa_school
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  #日期时间格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    #开启启动动画
+  banner:
+    image:
+      location: static/image/banner.jpg
+  #文件上传的大小
+  servlet:
+    multipart:
+      max-file-size: 2000MB
+      max-request-size: 2000MB
+      enabled: true
+  #redis的配置
+  redis:
+    port: 6379
+    host: 192.168.40.130
+    database: 0
+ #邮箱验证码配置
+  mail:
+    username: 2377374783@qq.com
+    host: smtp.qq.com
+    password: utchkdfwvlieebfi
+
+#    password: fjtcfiirzevybiab
+
+
+
+
+
+server:
+  port: 8811
+  #设置请求头最大大小
+  max-http-header-size: 209715200
+#扫描类路径下的所有xml配置文件
+mybatis-plus:
+  mapper-locations: classpath:mapper/server/*.xml,mapper/client/*.xml
+
+  #逻辑删除策略
+  global-config:
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: assign_id
+
+
+  # mybatis-plus日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #mybatis别名策略
+  type-aliases-package: com.pufaschool.conn.domain
+
+
+
+
+#文件上传
+upload-path: e:/uploadFile/
+#映射路径
+upload-mapper: /upload/**
+#轮播图路径
+upload-carousel: /carousel
+#头像路径
+upload-avatar: /avatar
+#视频路径
+upload-video: /video
+#视频封面
+upload-video-cover: /video/cover
+#课件路径
+upload-courseWare: /courseWare
+#文章插画
+upload-textIllustration: /text
+#文章封面
+upload-textCover: /text/textCover
+#项目url
+url-pattern: https://4w1245d049.hsk.top
+
+
+
+
+
+
+
+

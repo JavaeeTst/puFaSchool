@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaTextDao">
+
+    <select id="findTextByAttribute" resultType="com.pufaschool.conn.domain.PuFaText">
+        select
+        id,
+        description,
+        create_time,
+        upload,
+        text_cover,
+        delete_time,
+        update_time,
+        total_integration,
+        learn_type
+        from t_text
+        <where>
+            <if test="key!=null and key=''">
+                or description like concat('%',#{key},'#')
+            </if>
+            <if test="key!=null and key=''">
+                or text_info like concat('%',#{key},'#')
+            </if>
+            <if test="key!=null and key=''">
+                or upload like concat('%',#{key},'#')
+            </if>
+            <if test="key!=null and key=''">
+                or learn_type like concat('%',#{key},'#')
+            </if>
+        </where>
+    </select>
+
+</mapper>
