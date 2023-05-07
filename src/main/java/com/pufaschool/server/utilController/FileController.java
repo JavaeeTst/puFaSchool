@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 @RestController
 @Api(tags = "文件上传")
-@RequestMapping("/system/upload")
+@RequestMapping("/system/puFaSchool/upload")
 public class FileController {
 
     @Value("${upload-path}")

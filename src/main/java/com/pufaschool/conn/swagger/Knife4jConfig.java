@@ -44,7 +44,7 @@ public class Knife4jConfig {
                 .apiInfo(adminApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.pufaschool"))
-                .paths(PathSelectors.regex("/system/.*"))
+                .paths(PathSelectors.regex("/system/puFaSchool/.*"))
                 .build()
                 .globalOperationParameters(pars);
 
