@@ -88,7 +88,7 @@ public class TimeConfig {
     /**
      * 每三天对用户的头像清理(垃圾图片)
      */
-    @Scheduled(fixedDelay = 1000 * 60 * 60 * 24 * 3)
+    @Scheduled(initialDelay = 1000 * 60 * 60 * 24 * 3,fixedDelay = 1000 * 60 * 60 * 24 * 3)
     public void clearAvatar() {
 
         System.out.println("路径"+path);
@@ -127,9 +127,9 @@ public class TimeConfig {
         }
     }
     /**
-     * 每过5天清理一次课件(垃圾课件)
+     * 每过14天清理一次课件(垃圾课件)
      */
-    @Scheduled(fixedDelay = 1000 * 60 * 60 * 24 * 5)
+    @Scheduled(initialDelay = 1000 * 60 * 60 * 24 * 14,fixedDelay = 1000 * 60 * 60 * 24 * 14)
     public void clearCourseWare() {
 
         //先拿到课件的路径
@@ -170,7 +170,7 @@ public class TimeConfig {
     /**
      * 每过5天清理一次轮播图(垃圾图片)
      */
-    @Scheduled(fixedDelay = 1000 * 60 * 60 * 24 * 5)
+    @Scheduled(initialDelay = 1000 * 60 * 60 * 24 * 5,fixedDelay = 1000 * 60 * 60 * 24 * 5)
     public void clearCarousel() {
 
         //先拿到轮播图的路径
@@ -208,7 +208,7 @@ public class TimeConfig {
     /**
      * 每过一周就清理视频(垃圾视频和视频封面)
      */
-    @Scheduled(fixedDelay = 1000 * 60 * 60 * 24 * 7)
+    @Scheduled(initialDelay = 1000 * 60 * 60 * 24 * 7,fixedDelay = 1000 * 60 * 60 * 24 * 7)
     public void clearVideo() {
 
         //获取视频文件路径
