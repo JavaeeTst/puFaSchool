@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class PuFaSchoolApplication {
     public static void main(String[] args) {
 
+        System.out.print("测试");
+
 
         ConfigurableApplicationContext run = SpringApplication.run(PuFaSchoolApplication.class, args);
 
