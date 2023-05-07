@@ -26,9 +26,11 @@ import java.util.UUID;
 @RequestMapping("/system/puFaSchool/upload")
 public class FileController {
 
+    //磁盘路径
     @Value("${upload-path}")
     private String uploadPath;
 
+    //映射路径
     @Value("${upload-mapper}")
     private String uploadMapper;
 
@@ -151,7 +153,6 @@ public class FileController {
     @ApiOperation("课件上传(支持多文件,后端)")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
     public Result courseWareUpload(@RequestParam("courseWare") MultipartFile[] files) {
-
 
 
         return FileUtil.courseWareFile(files,uploadPath,uploadMapper,url,courseWarePath);

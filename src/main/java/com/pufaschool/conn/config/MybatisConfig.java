@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 public class MybatisConfig {
 
 
+    /**
+     * mybatis分页插件
+     * @return
+     */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
 
