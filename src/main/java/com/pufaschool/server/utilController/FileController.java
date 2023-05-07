@@ -153,53 +153,6 @@ public class FileController {
     public Result courseWareUpload(@RequestParam("courseWare") MultipartFile[] files) {
 
 
-//        List<String> path = new ArrayList<>();
-//
-//        for (MultipartFile file : files) {
-//
-//            //截取文件的后缀
-//            String courseWareSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-//
-//            //如果没有按照指定格式的文件上传,抛异常
-//            if (!".ppt".equals(courseWareSuffix)) {
-//
-//                throw new FileFormatException("仅支持ppt格式");
-//            }
-//            //文件大于10mb,抛异常
-//            if (file.getSize() > 10000000) {
-//
-//                throw new FileOverFlowMaxException("文件请不不要大于10mb");
-//            }
-//            //程序走到这里,代表文件没有问题，符合规范,先加载路径
-//            File courseWareFile = new File(uploadPath + courseWarePath);
-//
-//            //先判断是否存在这个磁盘路径,不存在就创建
-//            if (!courseWareFile.exists()) {
-//                courseWareFile.mkdirs();
-//            }
-//
-//            //图片名字
-//            String courseWareImgName = UUID.randomUUID() + courseWareSuffix;
-//
-//            try {
-//
-//                //把课件放入磁盘
-//                file.transferTo(new File(courseWareFile, courseWareImgName));
-//            } catch (IOException e) {
-//
-//            }
-//            //截取映射路径
-//            String mapperPath = uploadMapper.substring(uploadMapper.indexOf("/"), uploadMapper.lastIndexOf("/"));
-//
-//            //课件路径拼接(最终返回给前端)
-//            String imgPath = url + mapperPath + courseWarePath + "/" + courseWareImgName;
-//
-//            //先存放集合
-//            path.add(imgPath);
-//
-//        }
-//
-//        return Result.success(path);
 
         return FileUtil.courseWareFile(files,uploadPath,uploadMapper,url,courseWarePath);
     }
