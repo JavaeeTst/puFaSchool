@@ -31,7 +31,7 @@ public class PuFaText extends BaseEntity {
     private Long learnType;
 
     @ApiModelProperty("总积分")
-    private Double integration;
+    private Double TotalIntegration;
 
     @ApiModelProperty("文章封面")
     private String textCover;
