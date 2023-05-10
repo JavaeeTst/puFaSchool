@@ -6,6 +6,7 @@ import com.pufaschool.conn.domain.PuFaLog;
 import com.pufaschool.server.service.PuFaLogService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -60,5 +61,57 @@ public class PuFaLogServiceImpl extends ServiceImpl<PuFaLogDao, PuFaLog> impleme
         List<PuFaLog> adminLogAll = baseMapper.findAdminLogAll();
 
         return adminLogAll;
+    }
+
+    /**
+     * 按时间查询管理员日志
+     * @param date
+     * @return
+     */
+    @Override
+    public List<PuFaLog> getAdminLogByTime(Date date) {
+
+        List<PuFaLog> adminLogByTime = baseMapper.findAdminLogByTime(date);
+
+        return adminLogByTime;
+    }
+
+    /**
+     * 按时间查询用户的日志
+     * @param date
+     * @return
+     */
+    @Override
+    public List<PuFaLog> getUserLogByTime(Date date) {
+
+        List<PuFaLog> userLogByTime = baseMapper.findUserLogByTime(date);
+
+        return userLogByTime;
+    }
+
+    /**
+     * 按用户id查询用户的个人日志
+     * @param id
+     * @return
+     */
+    @Override
+    public List<PuFaLog> getUserLogByUserId(Long id) {
+
+        List<PuFaLog> userLogByUserId = baseMapper.findUserLogByUserId(id);
+
+        return userLogByUserId;
+    }
+
+    /**
+     * 按管理员id查询管理员的个人日志
+     * @param id
+     * @return
+     */
+    @Override
+    public List<PuFaLog> getAdminLogByAdminId(Long id) {
+
+        List<PuFaLog> adminLogByAdminId = baseMapper.findAdminLogByAdminId(id);
+
+        return adminLogByAdminId;
     }
 }

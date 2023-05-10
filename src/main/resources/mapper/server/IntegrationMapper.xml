@@ -3,9 +3,15 @@
 <mapper namespace="com.pufaschool.server.dao.PuFaIntegrateDao">
 
     <select id="findIntegrationByUserIdAndScoreIdAndScoreType" resultType="com.pufaschool.conn.domain.PuFaIntegration">
-        select user_id, score_id, score_type, get_integration from t_integration where user_id=#{userId} and score_id=#{scoreId} and score_type=#{scoreType}
+        select user_id, score_id, score_type, get_integration
+        from t_integration
+        where user_id = #{userId}
+          and score_id = #{scoreId}
+          and score_type = #{scoreType}
     </select>
     <update id="modifyUserIntegration">
-        update t_user set total_integration=total_integration+#{integration} where id=#{userid}
+        update t_user
+        set total_integration=total_integration + #{integration}
+        where id = #{userid}
     </update>
 </mapper>

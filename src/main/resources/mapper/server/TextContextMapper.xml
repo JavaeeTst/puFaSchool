@@ -3,7 +3,9 @@
 <mapper namespace="com.pufaschool.server.dao.PuFaTextContentDao">
 
     <select id="findTextContentByTextId" resultType="com.pufaschool.conn.domain.vo.SysTextContentVo">
-        select content_name,id  from t_text_content where text_id=#{textId}
+        select content_name, id
+        from t_text_content
+        where text_id = #{textId}
     </select>
 
 </mapper>

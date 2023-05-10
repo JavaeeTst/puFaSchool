@@ -7,10 +7,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Api(tags = "日志管理(超级管理员专属)(后端)")
@@ -50,5 +49,55 @@ public class LogController {
         List<PuFaLog> adminLogAll = logService.getAdminLogAll();
 
         return Result.success(adminLogAll);
+    }
+    /**
+     * 按时间查询用户日志
+     */
+    @ApiOperation("按时间查询用户日志")
+    @GetMapping("/getUserLogByTime")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    public Result getUserLogByTime(@RequestParam("date")Date date){
+
+        List<PuFaLog> userLogByTime = logService.getUserLogByTime(date);
+
+        return Result.success(userLogByTime);
+    }
+
+    /**
+     * 按时间查询管理员日志
+     */
+    @ApiOperation("按时间查询管理员日志")
+    @GetMapping("/getAdminLogByTime")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    public Result getAdminLogByTime(@RequestParam("date") Date date){
+
+        List<PuFaLog> adminLogByTime = logService.getAdminLogByTime(date);
+
+        return Result.success(adminLogByTime);
+    }
+    /**
+     *查询管理员个人日志
+     */
+    @ApiOperation("按管理员id查询管理员个人日志")
+    @GetMapping("/getAdminLogByAdminId/{id}")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    public Result getAdminLogByAdminId(@PathVariable Long id){
+
+        List<PuFaLog> adminLogByAdminId = logService.getAdminLogByAdminId(id);
+
+        return Result.success(adminLogByAdminId);
+    }
+
+    /**
+     * 查询用户的个人日志
+     */
+    @ApiOperation("按id查询用户的个人日志")
+    @GetMapping("/getUserLogByUserId/{id}")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    public Result getUserLogByUserId(@PathVariable Long id){
+
+        List<PuFaLog> userLogByUserId = logService.getUserLogByUserId(id);
+
+        return Result.success(userLogByUserId);
     }
 }

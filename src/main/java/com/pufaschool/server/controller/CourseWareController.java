@@ -40,7 +40,7 @@ public class CourseWareController {
      * 管理员上传课件
      */
     @PostMapping("/addCourseWare")
-    @PreAuthorize("hasAnyRole('ADMIN',SUPERADMIN)")
+    @PreAuthorize("hasAnyRole('ADMIN',SUPERA_DMIN)")
     @ApiOperation("上传课件")
     public Result addCourseWare(@RequestBody PuFaCourseWare puFaCourseWare) {
 
@@ -54,7 +54,7 @@ public class CourseWareController {
      */
     @DeleteMapping("/deleteById/{id}")
     @ApiOperation("删除课件")
-    @PreAuthorize("hasAnyRole('ADMIN',SUPERADMIN)")
+    @PreAuthorize("hasAnyRole('ADMIN',SUPER_ADMIN)")
     public Result deleteById(@PathVariable Long id) {
 
         boolean result = courseWareService.deleteCourseWare(id);
@@ -66,7 +66,7 @@ public class CourseWareController {
      * 按上传时间查询课件
      */
     @GetMapping("/getCourseWareByUploadTime")
-    @PreAuthorize("hasAnyRole('ADMIN','SUPERADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
     @ApiOperation("按上传时间查询课程")
     public Result getCourseWareByUploadTime(@RequestParam("uploadTime") Date date) {
 

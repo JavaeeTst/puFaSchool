@@ -6,7 +6,9 @@ import com.pufaschool.conn.result.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +34,8 @@ public class FileUtil {
 
         String urlPath = null;
 
+
+
         for (MultipartFile file : files) {
             //截取文件后缀名
             String imgSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
@@ -52,9 +56,11 @@ public class FileUtil {
             //新建一个file类存文件的位置
             File filepath = new File(upload + imageFile);
 
+            System.out.println(filepath+"文件类");
+
             //判断是否有这个文件，有的话跳过，没有新建
             if (!filepath.exists()) {
-                filepath.mkdir();
+                filepath.mkdirs();
             }
             try {
                 //把文件写入磁盘里面
@@ -198,6 +204,61 @@ public class FileUtil {
         }
 
         return Result.success(path);
+    }
+
+    /**
+     * 分片上传
+     */
+    public static void chunkUpload(String videoFile,String chunkFile) throws Exception {
+
+        //源文件
+//        File sourceFile=new File("E:\\testvideo\\test.mp4");
+        File sourceFile=new File(videoFile);
+
+
+        //分块文件存储路径
+        String chunkFilePath=chunkFile;
+
+//        String chunkFilePath="E:\\testvideo\\test";
+
+        //分块文件大小
+        int chunkSize=1024*1024*1;
+
+        //分块文件个数
+        int chunkNum=(int)Math.ceil(sourceFile.length()*1.0/chunkSize);
+
+        //使用流从源文件读数据,向分块文件中写数据
+        RandomAccessFile raf_r = new RandomAccessFile(sourceFile, "r");
+
+        //缓冲区
+        byte[] bytes=new byte[1024];
+
+        for (int i = 0; i <chunkNum ; i++) {
+
+            //分块文件
+            File chunkFile2 = new File(chunkFilePath + i);
+
+            //将分片写入
+            RandomAccessFile rw = new RandomAccessFile(chunkFile, "rw");
+
+            int len=-1;
+
+            while ((len=raf_r.read(bytes))!=-1){
+
+                rw.write(bytes,0,len);
+
+                if(chunkFile.length()>=chunkSize){
+
+                    break;
+                }
+
+            }
+            rw.close();
+        }
+
+        raf_r.close();
+
+
     }
 
 

@@ -121,7 +121,7 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserDao, PuFaUser> 
         //发送
         sender.send(message);
 
-        //设置缓存为5分钟
+        //设置缓存的有效实体注册2分钟密码找回5分钟
         redisTemplate.opsForValue().set(email, code, yzmTime, TimeUnit.MINUTES);
 
     }

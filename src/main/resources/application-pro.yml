@@ -2,8 +2,8 @@ spring:
   datasource:
     driver: com.mysql.jdbc.cj.Driver
     username: root
-    password: 1526544923
-    url: jdbc:mysql://localhost:3306/pufa_school
+    password: password
+    url: jdbc:mysql://134.175.155.182:3307/pufa_school
     type: com.alibaba.druid.pool.DruidDataSource
 
   #日期时间格式化
@@ -23,7 +23,7 @@ spring:
   #redis的配置
   redis:
     port: 6379
-#    host: 192.168.40.130
+    #    host: 192.168.40.130
     database: 0
     #linux地址
     host: 134.175.155.182
@@ -32,7 +32,6 @@ spring:
     username: 2377374783@qq.com
     host: smtp.qq.com
     password: utchkdfwvlieebfi
-    port: 587
 
 #    password: fjtcfiirzevybiab
 
@@ -67,9 +66,11 @@ mybatis-plus:
 
 
 #文件上传
-upload-path: e:/uploadFile/
-##linux地址
-#upload-path: /pufa-upload/upload/
+#upload-path: e:/uploadFile/
+#linux地址
+upload-path: /pufa-upload/upload/
+#linux清理垃圾地址
+upload-clear: /opt/javaProject/pufaschool/upload-file/
 #映射路径
 upload-mapper: /upload/**
 #轮播图路径
@@ -89,9 +90,8 @@ upload-textCover: /text/textCover
 #项目url
 #url-pattern: https://4w1245d049.hsk.top
 #linux地址
-url-pattern: https://4w1245d049.hsk.top
-#切片文件url（临时存储路径(视频)）
-upload-chunk: /video/chunk
+url-pattern: http://134.175.155.182:${server.port}
+
 
 
 

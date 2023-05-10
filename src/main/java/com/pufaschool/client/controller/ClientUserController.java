@@ -75,7 +75,7 @@ public class ClientUserController {
         //先查询缓存是否有验证码
         String code = (String) redisTemplate.opsForValue().get(email);
         if (code != null) {
-            return Result.success("发送完成");
+            return Result.success("验证码已经发送，请不要重复，请等待该验证码过期");
         }
         //没有就生成一个
         code = CodeUtil.code(6);

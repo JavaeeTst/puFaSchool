@@ -18,5 +18,25 @@
         select id, user_id, log_info, create_time
         from t_user_log
     </select>
+    <select id="findAdminLogByTime" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time, log_type
+        from t_admin_log
+        where create_time = #{date}
+    </select>
+    <select id="findUserLogByTime" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time, log_type
+        from t_user_log
+        where create_time = #{date}
+    </select>
+    <select id="findUserLogByUserId" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time, log_type
+        from t_user_log
+        where user_id = #{id}
+    </select>
+    <select id="findAdminLogByAdminId" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time, log_type
+        from t_admin_log
+        where user_id = #{id}
+    </select>
 
 </mapper>

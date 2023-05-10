@@ -16,4 +16,7 @@ public class LogUtil {
 
     //删除日志
     public static final Integer DELETE_LOG = 4;
+
+    //登录日志
+    public static final Integer LOGIN_LOG=5;
 }

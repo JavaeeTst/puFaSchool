@@ -67,6 +67,7 @@ public class FileController {
     private String uploadTextCover;
 
 
+
     /**
      * 文章封面上传
      */
@@ -140,10 +141,12 @@ public class FileController {
     @PostMapping("/video")
     @ApiOperation("视频上传(支持多文件)")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
-    public Result videoUpload(@RequestParam("video") MultipartFile[] files) {
+    public Result videoUpload(@RequestParam("video") MultipartFile[] files) throws Exception {
+
 
 
         return FileUtil.videoFile(files, uploadPath, uploadMapper, url, videoPath);
+
     }
 
     /**

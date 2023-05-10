@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pufaschool.conn.domain.PuFaLog;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PuFaLogDao extends BaseMapper<PuFaLog> {
@@ -24,5 +25,11 @@ public interface PuFaLogDao extends BaseMapper<PuFaLog> {
     List<PuFaLog> findUserLogByUserId(@Param("id") Long id);
 
     //查询管理员个人的日志记录
-    List<PuFaLog> findAdminLogByUserId(@Param("id") Long id);
+    List<PuFaLog> findAdminLogByAdminId(@Param("id") Long id);
+
+    //按日期查询管理员日志
+    List<PuFaLog> findAdminLogByTime(@Param("date")Date date);
+
+    //按日期查询用户的日志
+    List<PuFaLog> findUserLogByTime(@Param("date") Date date);
 }
