@@ -59,11 +59,11 @@ public class LoginLogManager {
         //获取传过来的user对象
         PuFaUser puFaUser = (PuFaUser) point.getArgs()[0];
 
+        puFaUser=userService.getUserByUsername(puFaUser.getUsername());
+
         PuFaLog log=null;
 
         switch (methodName){
-
-
 
 
             //如果是管理员登录

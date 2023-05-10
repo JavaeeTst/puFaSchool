@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.BaseEntity;
 import com.pufaschool.conn.domain.PuFaCourseWare;
+import com.pufaschool.conn.exception.UsernameFreezeException;
 import com.pufaschool.server.dao.PuFaCourseWareDao;
 import com.pufaschool.server.service.PuFaCourseWareService;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +23,16 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
      * @return
      */
     @Override
-    public List<String> getCourseWareByCourseWareIds(Long[] ids) {
+    public List<String> getCourseWareByCourseWareIds(Long[] ids,HttpServletRequest request) {
 
-        List<String> courseWareByIdList = baseMapper.findCourseWareByIdList(ids);
+        //如果token没有代表没有登录拦截
+        if(request.getHeader("token")==null){
+
+            throw new UsernameFreezeException("请先登录");
+
+        }
+
+        List<String> courseWareByIdList = baseMapper.downloadCourseWareByIdList(ids);
 
         return courseWareByIdList;
     }
@@ -40,6 +49,26 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
 
 
         return byId;
+    }
+
+    /**
+     * 单个课件下载
+     * @param id
+     * @return
+     */
+    @Override
+    public String getCourseWareUrlById(Long id, HttpServletRequest request) {
+
+        //如果token没有代表没有登录拦截
+        if(request.getHeader("token")==null){
+
+            throw new UsernameFreezeException("请先登录");
+
+        }
+
+        String courseWareById = baseMapper.downloadCourseWareById(id);
+
+        return courseWareById;
     }
 
     /**

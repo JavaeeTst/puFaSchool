@@ -12,7 +12,10 @@ import java.util.List;
 public interface PuFaCourseWareDao extends BaseMapper<PuFaCourseWare> {
 
     //批量下载课件
-    List<String> findCourseWareByIdList(@Param("ids") Long[] ids);
+    List<String> downloadCourseWareByIdList(@Param("ids") Long[] ids);
+
+    //下载课件
+    String downloadCourseWareById(@Param("id") Long id);
 
 
 }

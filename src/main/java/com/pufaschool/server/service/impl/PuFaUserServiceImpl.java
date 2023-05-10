@@ -530,4 +530,21 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         return avatars;
     }
 
+    /**
+     * 按用户名查询用户
+     * @param username
+     * @return
+     */
+    @Override
+    public PuFaUser getUserByUsername(String username) {
+
+        LambdaQueryWrapper<PuFaUser> wrapper=new LambdaQueryWrapper<>();
+
+        wrapper.eq(PuFaUser::getUsername,username);
+
+        PuFaUser getUserByUsername = this.getOne(wrapper);
+
+        return getUserByUsername;
+    }
+
 }

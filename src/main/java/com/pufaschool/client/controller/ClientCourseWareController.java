@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -28,9 +29,9 @@ public class ClientCourseWareController {
      */
     @GetMapping("/getCourseWareByIds")
     @ApiOperation("批量下载课件")
-    public Result getCourseWareByIds(@RequestParam("ids") Long[] ids) {
+    public Result getCourseWareByIds(@RequestParam("ids") Long[] ids,HttpServletRequest request ) {
 
-        List<String> courseWareByCourseWareIds = courseWareService.getCourseWareByCourseWareIds(ids);
+        List<String> courseWareByCourseWareIds = courseWareService.getCourseWareByCourseWareIds(ids,request);
 
         return Result.success(courseWareByCourseWareIds);
 
@@ -39,11 +40,11 @@ public class ClientCourseWareController {
     /**
      * 单独课件下载
      */
-    @GetMapping("/getCourseWareByIds/{id}")
+    @GetMapping("/getCourseWareById/{id}")
     @ApiOperation("课件下载")
-    public Result getCourseWareById(@PathVariable Long id) {
+    public Result getCourseWareById(@PathVariable Long id,HttpServletRequest request) {
 
-        PuFaCourseWare courseWareById = courseWareService.getCourseWareById(id);
+        String courseWareById = courseWareService.getCourseWareUrlById(id,request);
 
         return Result.success(courseWareById);
     }

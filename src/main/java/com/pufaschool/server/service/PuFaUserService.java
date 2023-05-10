@@ -71,4 +71,7 @@ public interface PuFaUserService extends IService<PuFaUser> {
     //用户(管理员)默认头像
     List<String> getUserAndAdminDefaultAvatar(String role);
 
+    //按用户名查询用户
+    PuFaUser getUserByUsername(String username);
+
 }

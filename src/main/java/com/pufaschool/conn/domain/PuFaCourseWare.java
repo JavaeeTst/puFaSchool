@@ -35,6 +35,10 @@ public class PuFaCourseWare extends BaseEntity {
     @TableField("courseware_type")
     private String courserwareType;
 
+    @ApiModelProperty("课件积分")
+    @TableField("integration")
+    private Integer integration;
+
     @ApiModelProperty("学习类型")
     private Integer learnType;
 

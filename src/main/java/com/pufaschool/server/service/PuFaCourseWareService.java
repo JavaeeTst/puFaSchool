@@ -3,6 +3,7 @@ package com.pufaschool.server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pufaschool.conn.domain.PuFaCourseWare;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -31,8 +32,11 @@ public interface PuFaCourseWareService extends IService<PuFaCourseWare> {
     PuFaCourseWare  findCourseWareByCourseWarePath(String courseWarePath);
 
     //批量下载课件
-    List<String> getCourseWareByCourseWareIds(Long[] ids);
+    List<String> getCourseWareByCourseWareIds(Long[] ids, HttpServletRequest request);
+
+    //单个课件查询
+    PuFaCourseWare getCourseWareById(Long id);
 
     //单个课件下载
-    PuFaCourseWare getCourseWareById(Long id);
+    String getCourseWareUrlById(Long id,HttpServletRequest request);
 }

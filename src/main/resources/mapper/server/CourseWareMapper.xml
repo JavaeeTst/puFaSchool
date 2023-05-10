@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pufaschool.server.dao.PuFaCourseWareDao">
 
-    <select id="findCourseWareByIdList" resultType="string">
-        select courseware_url from t_courseware where id in
-        <foreach collection="ids" item="id" open="(" close=")">
-            #{ids}
-        </foreach>
+
+    <select id="downloadCourseWareById" resultType="string">
+        select courseware_url from t_courseware where id=#{id}
+    </select>
+    <select id="downloadCourseWareByIdList" resultType="string">
+        select courseware_url from t_courseware id in <foreach collection="ids" item="id" open="(" close=")">
+        #{ids}
+    </foreach>
     </select>
 
 </mapper>
