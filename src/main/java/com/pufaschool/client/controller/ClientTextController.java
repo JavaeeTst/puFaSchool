@@ -56,6 +56,16 @@ public class ClientTextController {
 
         return Result.success(textByAttribute);
     }
+    /**
+     * 文章浏览量+1(每点击一次发送一次请求)
+     */
+    @GetMapping("/textPageViews/{id}")
+    @ApiOperation("文章浏览量+1")
+    public void textPageViews(@PathVariable Long id){
+
+        textService.textPageViews(id);
+
+    }
 
 
 }

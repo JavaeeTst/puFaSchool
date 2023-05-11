@@ -3,6 +3,7 @@ package com.pufaschool.client.controller;
 import com.pufaschool.client.service.ClientPuFaVideoService;
 import com.pufaschool.conn.domain.PuFaVideo;
 import com.pufaschool.conn.result.Result;
+import com.pufaschool.server.service.PuFaVideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ClientPuFaVideoController {
 
     @Autowired
     private ClientPuFaVideoService puFaVideoService;
+
+    @Autowired
+    private PuFaVideoService videoService;
 
     @GetMapping("/getVideoList")
     @ApiOperation("获取所有的视频")
@@ -53,6 +57,16 @@ public class ClientPuFaVideoController {
         PuFaVideo videoByVideoId = puFaVideoService.getVideoByVideoId(videoId);
 
         return Result.success(videoByVideoId);
+    }
+    /**
+     * 浏览量+1(每过5分钟发送一次请求)
+     */
+    @GetMapping("/videoPageViews/{id}")
+    @ApiOperation("视频浏览量+1(每过5分钟发送一次请求)")
+    public void videoPageViews(@PathVariable Long id){
+
+        videoService.videoPageViews(id);
+
     }
 
 

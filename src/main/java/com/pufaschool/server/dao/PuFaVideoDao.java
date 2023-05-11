@@ -25,5 +25,8 @@ public interface PuFaVideoDao extends BaseMapper<PuFaVideo> {
     //按视频封面查找视频信息(用于清理垃圾视频)
     PuFaVideo findVideoByVideoCover(@Param("videoCover")String videoCover);
 
+    //视频浏览量增加(每点击一次发送一次请求+1)
+    void videoPageView(@Param("id") Long id);
+
 
 }

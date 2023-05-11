@@ -74,4 +74,7 @@ public interface PuFaUserService extends IService<PuFaUser> {
     //按用户名查询用户
     PuFaUser getUserByUsername(String username);
 
+    //查询被删除的用户
+    List<PuFaUser> getDeleteUser();
+
 }

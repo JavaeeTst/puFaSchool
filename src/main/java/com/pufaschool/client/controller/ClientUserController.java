@@ -106,7 +106,7 @@ public class ClientUserController {
     @PostMapping("/updateByUserId")
     public Result updateById(@Validated @RequestBody PuFaUser puFaUser) {
 
-        boolean result = userService.updateById(puFaUser);
+        boolean result = userService.updateByUserId(puFaUser);
 
         return result ? Result.success("修改成功") : Result.error(Status.ERROR, "修改失败");
 

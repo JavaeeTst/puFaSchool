@@ -69,7 +69,7 @@ public class UserLogManager {
             Claims claims = JWTUtils.checkToken(token);
 
             //获取token里面的userId
-            Integer userId = (Integer) claims.get("userId");
+            Long userId = (Long) claims.get("userId");
 
             //在按id查询用户
             PuFaUser userById = userService.getUserById(Long.valueOf(userId));
@@ -82,6 +82,9 @@ public class UserLogManager {
 
             //定义日志类型(默认查询)
             Integer logType = LogUtil.QUERY_LOG;
+
+            //定义日志
+            PuFaLog log=null;
 
             //如果用户注册,则token会是null,则不需要看角色信息
             if (token == null) {
@@ -108,7 +111,7 @@ public class UserLogManager {
                     logType = LogUtil.ADD_LOG;
 
                     //生成日志对象
-                    PuFaLog log = new PuFaLog(userByEmail.getId(), methodName, logType);
+                     log = new PuFaLog(userByEmail.getId(), methodName, logType);
 
                     //存入数据库
                     logService.addUserLog(log);
@@ -124,6 +127,12 @@ public class UserLogManager {
 
                         logType = LogUtil.UPDATE_TYPE;
 
+                        //日志信息存入对象
+                         log = new PuFaLog(Long.valueOf(userId), userById.getUsername() + "用户" + dateTime + methodName, logType);
+
+                        //最后存入数据库
+                        logService.addUserLog(log);
+
                         break;
 
                     //用户修改了自己的密码
@@ -132,6 +141,12 @@ public class UserLogManager {
                         methodName = "修改了密码";
 
                         logType = LogUtil.UPDATE_TYPE;
+
+                        //日志信息存入对象
+                        log = new PuFaLog(Long.valueOf(userId), userById.getUsername() + "用户" + dateTime + methodName, logType);
+
+                        //最后存入数据库
+                        logService.addUserLog(log);
                         break;
 
                     //用户进行邮箱验证
@@ -140,6 +155,12 @@ public class UserLogManager {
                         methodName = "进行邮箱验证";
 
                         logType = LogUtil.QUERY_LOG;
+
+                        //日志信息存入对象
+                        log = new PuFaLog(Long.valueOf(userId), userById.getUsername() + "用户" + dateTime + methodName, logType);
+
+                        //最后存入数据库
+                        logService.addUserLog(log);
                         break;
 
                     //用户找回密码
@@ -148,21 +169,20 @@ public class UserLogManager {
                         methodName = "执行找回密码";
 
                         logType = LogUtil.UPDATE_TYPE;
+
+                        //日志信息存入对象
+                        log = new PuFaLog(Long.valueOf(userId), userById.getUsername() + "用户" + dateTime + methodName, logType);
+
+                        //最后存入数据库
+                        logService.addUserLog(log);
+
                         break;
 
-                    case "login":
 
-                        methodName = "登录";
-
-                        logType = LogUtil.QUERY_LOG;
 
                 }
 
-                //日志信息存入对象
-                PuFaLog log = new PuFaLog(Long.valueOf(userId), userById.getUsername() + "用户" + dateTime + methodName, logType);
 
-                //最后存入数据库
-                logService.addUserLog(log);
             }
         }
     }

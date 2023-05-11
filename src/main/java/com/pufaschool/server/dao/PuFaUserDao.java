@@ -47,5 +47,8 @@ public interface PuFaUserDao extends BaseMapper<PuFaUser> {
     //用户登录
     PuFaUser findUserByUsernameAndPassword(@Param("username")String username,@Param("password")String password);
 
+    //查询被删除的用户
+    List<PuFaUser> findDeleteUser();
+
 
 }

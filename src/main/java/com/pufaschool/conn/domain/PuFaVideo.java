@@ -52,6 +52,9 @@ public class PuFaVideo extends BaseEntity implements Serializable {
     @ApiModelProperty("视频封面")
     private String videCover;
 
+    @ApiModelProperty("视频浏览量")
+    private Long pageViews;
+
     @TableField("lecturer")
     @ApiModelProperty("讲课人")
     private String lecturer;

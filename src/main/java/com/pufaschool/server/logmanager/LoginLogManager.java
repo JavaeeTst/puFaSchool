@@ -57,9 +57,7 @@ public class LoginLogManager {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
 
         //获取传过来的user对象
-        PuFaUser puFaUser = (PuFaUser) point.getArgs()[0];
-
-        puFaUser=userService.getUserByUsername(puFaUser.getUsername());
+        Object o =  point.getArgs()[0];
 
         PuFaLog log=null;
 
@@ -69,7 +67,9 @@ public class LoginLogManager {
             //如果是管理员登录
             case "loginServer":
 
+                 PuFaUser puFaUser=(PuFaUser)o;
 
+                 puFaUser=userService.getUserByUsername(puFaUser.getUsername());
 
                 methodName="管理员"+puFaUser.getUsername()+currentDate+"登录普法后台系统";
 
@@ -82,10 +82,15 @@ public class LoginLogManager {
                 break;
             case "loginClient":
 
-                methodName="管理员"+puFaUser.getUsername()+currentDate+"登录普法后台系统";
+                String username=(String)o;
+
+                System.out.println(username);
+                PuFaUser user=userService.getUserByUsername(username);
+
+                methodName="用户"+username+currentDate+"登录普法系统";
 
                 //实例化日志对象
-                log = new PuFaLog(puFaUser.getId(),methodName, LogUtil.LOGIN_LOG);
+                log = new PuFaLog(user.getId(),methodName, LogUtil.LOGIN_LOG);
 
                 //存入数据库
                 logService.addUserLog(log);

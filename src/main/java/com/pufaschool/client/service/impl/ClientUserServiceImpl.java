@@ -105,7 +105,7 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserDao, PuFaUser> 
             yzmTime = 5;
         }
 
-        //验证码标配提
+        //验证码标题
         message.setSubject("普法学堂验证码");
 
         //邮箱接收信息
@@ -179,10 +179,10 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserDao, PuFaUser> 
         //走到这一步，就代表没有问题，可以注册,先给密码加密
         puFaUser.setPassword(Md5Util.encode(puFaUser.getPassword()));
 
-        //如果用户没有上传头像,给定一个默认头像
-        String avatar = ClassLoader.getSystemClassLoader().getResource("default/user/default.jpeg").getPath();
-
-        puFaUser.setAvatar(avatar);
+//        //如果用户没有上传头像,给定一个默认头像
+//        String avatar = ClassLoader.getSystemClassLoader().getResource("default/user/default.jpeg").getPath();
+//
+//        puFaUser.setAvatar(avatar);
         //注册完成
         int insert = baseMapper.insert(puFaUser);
 

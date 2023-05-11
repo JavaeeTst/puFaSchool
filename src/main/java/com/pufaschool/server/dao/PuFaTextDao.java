@@ -13,4 +13,7 @@ public interface PuFaTextDao extends BaseMapper<PuFaText> {
 
 
     List<PuFaText> findTextByAttribute(@Param("key") String key);
+
+    //文章浏览量+1(每过5分钟发送一次请求)
+    void textPageView(@Param("id") Long id);
 }

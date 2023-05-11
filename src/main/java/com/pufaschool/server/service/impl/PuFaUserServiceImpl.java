@@ -157,14 +157,16 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
     @Override
     public boolean deleteByUserId(Long id) {
 
-        int result = 0;
+        //删除之前先看看用户是否被禁用
+        PuFaUser byId = this.getById(id);
 
-        if (id != null) {
+        //如果被禁用则删除失败
+        if (byId.getStatus()==1) {
 
-            result = baseMapper.deleteById(id);
+            throw new UserErrorException("该用户已经被禁用,无法删除");
         }
 
-        return result > 0;
+        return this.removeById(id);
     }
 
     //    /**
@@ -410,7 +412,7 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         }
 
         //取出token里面的用户id
-        Long userId = Long.valueOf((Integer) JWTUtils.checkToken(token).get("userId"));
+        Long userId = (Long)JWTUtils.checkToken(token).get("userId");
 
 
         //然后查询
@@ -545,6 +547,18 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         PuFaUser getUserByUsername = this.getOne(wrapper);
 
         return getUserByUsername;
+    }
+
+    /**
+     * 查询被删除的用户
+     * @return
+     */
+    @Override
+    public List<PuFaUser> getDeleteUser() {
+
+        List<PuFaUser> deleteUser = baseMapper.findDeleteUser();
+
+        return deleteUser;
     }
 
 }

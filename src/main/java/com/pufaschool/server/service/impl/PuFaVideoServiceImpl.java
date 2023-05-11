@@ -175,4 +175,13 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
 
         return videoByVideoCover;
     }
+
+    /**
+     * 视频浏览量+1
+     * @param id
+     */
+    @Override
+    public void videoPageViews(Long id) {
+        baseMapper.videoPageView(id);
+    }
 }

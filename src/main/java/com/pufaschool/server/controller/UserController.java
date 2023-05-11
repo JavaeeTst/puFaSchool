@@ -39,6 +39,18 @@ public class UserController {
 
 
     /**
+     * 查询被删除的用户
+     */
+    @GetMapping("/getDeleteUser")
+    @ApiOperation("查询被删除的用户")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    public Result getDeleteUser(){
+
+        List<PuFaUser> deleteUser = puFaUserService.getDeleteUser();
+
+        return Result.success(deleteUser);
+    }
+    /**
      * 按id修改用户接口
      */
     @ApiOperation("用户修改个人信息")

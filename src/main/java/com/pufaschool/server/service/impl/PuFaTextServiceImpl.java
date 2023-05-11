@@ -105,4 +105,10 @@ public class PuFaTextServiceImpl extends ServiceImpl<PuFaTextDao, PuFaText> impl
 
         return textByAttribute;
     }
+
+    @Override
+    public void textPageViews(Long id) {
+
+        baseMapper.textPageView(id);
+    }
 }

@@ -3,6 +3,8 @@ package com.pufaschool.conn.filter;
 import com.pufaschool.conn.domain.LoginUser;
 import com.pufaschool.conn.domain.PuFaRole;
 import com.pufaschool.conn.domain.PuFaUser;
+import com.pufaschool.conn.exception.UserErrorException;
+import com.pufaschool.conn.exception.UsernameNotFoundExceptions;
 import com.pufaschool.server.service.PuFaRoleService;
 import com.pufaschool.server.service.PuFaUserService;
 import com.pufaschool.conn.utils.JWTUtils;
@@ -76,7 +78,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         //如果用户为null，代表数据库没有该用户
         if (puFaUser == null) {
-            throw new UsernameNotFoundException("没有该用户");
+            throw new UsernameNotFoundExceptions("没有该用户");
         }
         //查询所以的角色
         List<PuFaRole> byUsername = puFaRoleService.getRoleByUsernameOrUserId(username, null);

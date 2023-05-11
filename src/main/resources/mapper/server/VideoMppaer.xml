@@ -55,4 +55,7 @@
         from t_video
         where video_path = #{path}
     </select>
+    <update id="videoPageView">
+        update t_video set page_views=page_views+1 where id=#{id}
+    </update>
 </mapper>

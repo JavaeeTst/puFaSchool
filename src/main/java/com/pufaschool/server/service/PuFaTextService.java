@@ -27,4 +27,7 @@ public interface PuFaTextService extends IService<PuFaText> {
 
     //模糊查询文章
     List<PuFaText> getTextByAttribute(String key);
+
+    //文章浏览量加+1(没次点击发送请求)
+    void textPageViews(Long id);
 }

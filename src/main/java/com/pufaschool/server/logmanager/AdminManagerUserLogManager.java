@@ -66,7 +66,7 @@ public class AdminManagerUserLogManager {
             Claims claims = JWTUtils.checkToken(token);
 
             //获取token里面的userId
-            Integer userId = (Integer) claims.get("userId");
+            Long userId = (Long) claims.get("userId");
 
             //再次查询用户的角色
             List<PuFaRole> roleByUsernameOrUserId = roleService.getRoleByUsernameOrUserId(null, Long.valueOf(userId));
@@ -137,7 +137,7 @@ public class AdminManagerUserLogManager {
 
                             Integer status = (Integer) point.getArgs()[0];
 
-                            Integer id = (Integer) point.getArgs()[1];
+                            Long id = (Long) point.getArgs()[1];
 
                             String username = userService.getUserById(Long.valueOf(id)).getUsername();
 
@@ -147,7 +147,7 @@ public class AdminManagerUserLogManager {
                     PuFaLog log = new PuFaLog();
 
                     //用户id存入对象
-                    log.setUserId(Long.valueOf(userId));
+                    log.setUserId(userId);
 
                     //把日志信息存入对象
                     log.setLogInfo(userById.getUsername() + "管理员" + dateTime + "执行了" + methodName);

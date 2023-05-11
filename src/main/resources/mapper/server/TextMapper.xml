@@ -29,5 +29,7 @@
             </if>
         </where>
     </select>
-
+  <update id="textPageView">
+      update t_text set page_views=page_views+1 where id=#{id}
+  </update>
 </mapper>

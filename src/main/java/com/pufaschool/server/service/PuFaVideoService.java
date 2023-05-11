@@ -35,4 +35,7 @@ public interface PuFaVideoService extends IService<PuFaVideo> {
 
     //按视频封面查找视频(用于清理垃圾视频)
     PuFaVideo getVideoByVideoCover(String videoCover);
+
+    //视频浏览量+1每次点击视频发送请求
+    void videoPageViews(Long id);
 }
