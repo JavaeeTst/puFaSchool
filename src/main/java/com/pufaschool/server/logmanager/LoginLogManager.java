@@ -2,6 +2,7 @@ package com.pufaschool.server.logmanager;
 
 import com.pufaschool.conn.domain.PuFaLog;
 import com.pufaschool.conn.domain.PuFaUser;
+import com.pufaschool.conn.exception.UsernameNotFoundExceptions;
 import com.pufaschool.conn.utils.JWTUtils;
 import com.pufaschool.conn.utils.LogUtil;
 import com.pufaschool.server.service.PuFaLogService;
@@ -86,6 +87,9 @@ public class LoginLogManager {
 
                 System.out.println(username);
                 PuFaUser user=userService.getUserByUsername(username);
+               if(user==null){
+                   throw new UsernameNotFoundExceptions("用户名错误");
+               }
 
                 methodName="用户"+username+currentDate+"登录普法系统";
 

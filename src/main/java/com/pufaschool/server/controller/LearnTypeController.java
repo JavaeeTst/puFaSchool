@@ -2,6 +2,7 @@ package com.pufaschool.server.controller;
 
 import com.pufaschool.conn.domain.PuFaLearnType;
 import com.pufaschool.conn.result.Result;
+import com.pufaschool.conn.result.Status;
 import com.pufaschool.server.service.PuFaLearnTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,19 @@ public class LearnTypeController {
 
     @Autowired
     private PuFaLearnTypeService learnTypeService;
+
+    /**
+     * 添加学习类型
+     */
+    @PostMapping("/addLearnType")
+    @ApiOperation("添加学习类型")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
+    public Result addLearnLearn(@RequestBody PuFaLearnType learnType){
+
+        boolean result = learnTypeService.addLearnType(learnType);
+
+        return result?Result.success("添加成功"):Result.error(Status.ERROR,"添加失败");
+    }
 
     /**
      * 查询所有学习类型

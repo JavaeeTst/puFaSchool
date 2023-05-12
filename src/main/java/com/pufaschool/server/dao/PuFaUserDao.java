@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pufaschool.conn.domain.PuFaUser;
+import com.pufaschool.conn.domain.vo.EmailVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -49,6 +50,9 @@ public interface PuFaUserDao extends BaseMapper<PuFaUser> {
 
     //查询被删除的用户
     List<PuFaUser> findDeleteUser();
+
+    //用户邮箱修改
+    boolean modifyUserEmailByUserId(@Param("vo") EmailVo vo);
 
 
 }

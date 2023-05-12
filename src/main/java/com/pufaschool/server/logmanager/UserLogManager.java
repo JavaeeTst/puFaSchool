@@ -69,7 +69,7 @@ public class UserLogManager {
             Claims claims = JWTUtils.checkToken(token);
 
             //获取token里面的userId
-            Long userId = (Long) claims.get("userId");
+            Long userId = Long.valueOf((Long) claims.get("userId"));
 
             //在按id查询用户
             PuFaUser userById = userService.getUserById(Long.valueOf(userId));

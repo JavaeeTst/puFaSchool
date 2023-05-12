@@ -171,4 +171,7 @@
     <select id="findDeleteUser" resultType="pufauser">
         select id, username, real_name, password, phone_num, avatar, status, email, total_integration, create_time, update_time, is_delete, id_card, native, home_address from t_user where is_delete=1
     </select>
+    <update id="modifyUserEmailByUserId">
+        update  t_user set email=#{vo.oldEmail} where id=#{vo.userId}
+    </update>
 </mapper>

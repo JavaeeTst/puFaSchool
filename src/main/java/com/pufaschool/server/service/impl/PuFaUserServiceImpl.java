@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.BaseEntity;
+import com.pufaschool.conn.domain.vo.EmailVo;
 import com.pufaschool.conn.exception.*;
 import com.pufaschool.conn.utils.JWTUtils;
 import com.pufaschool.server.dao.PuFaUserDao;
@@ -559,6 +560,44 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         List<PuFaUser> deleteUser = baseMapper.findDeleteUser();
 
         return deleteUser;
+    }
+
+    /**
+     * 用户邮箱修改
+     * @param
+     * @param
+     * @return
+     */
+
+    @Override
+    public boolean updateUserEmailByUserId(EmailVo vo) {
+
+        //取出验证码
+        String oldYzmCode = (String) redisTemplate.opsForValue().get(vo.getOldEmail());
+
+        //在使用验证码比对，不一样就抛异常
+        if (!vo.getOldCode().equals(oldYzmCode)) {
+
+            throw new YZMException("验证码错误");
+        }
+        //程序走到这里,说明验证码是正确的，在拿新邮箱和老邮箱比对一下
+        if (vo.getNewEmail().equals(vo.getOldCode())) {
+
+            throw new EmailExistException("新邮箱不能和老邮箱一样");
+        }
+
+        //在取出新邮箱验证码
+        String newYzmCode = (String) redisTemplate.opsForValue().get(vo.getNewCode());
+
+        //在比对新验证码
+        if (!newYzmCode.equals(vo.getNewCode())) {
+
+            throw new YZMException("验证码错误");
+        }
+        //程序走到这里就没有问题
+        boolean result = baseMapper.modifyUserEmailByUserId(vo);
+
+        return result;
     }
 
 }

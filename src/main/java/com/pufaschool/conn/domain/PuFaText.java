@@ -40,7 +40,7 @@ public class PuFaText extends BaseEntity {
     @ApiModelProperty("文章标题")
     private String textTittle;
 
-    @ApiModelProperty("文章浏览器")
+    @ApiModelProperty("文章浏览量")
     private  Long pageViews;
 
     @ApiModelProperty("文章内容")

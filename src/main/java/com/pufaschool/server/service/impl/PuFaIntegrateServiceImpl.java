@@ -45,7 +45,7 @@ public class PuFaIntegrateServiceImpl extends ServiceImpl<PuFaIntegrateDao, PuFa
         Claims claims = JWTUtils.checkToken(token);
 
         //取出用户ID
-        Long userId = (Long) claims.get("userId");
+            Long userId = Long.valueOf((Integer) claims.get("userId"));
 
         //先查询有没有获得过该积分,能查询到就代表获得过,不能重复获取
         PuFaIntegration puFaIntegration = baseMapper.findIntegrationByUserIdAndScoreIdAndScoreType(userId, integration.getScoreId(), integration.getScoreTypeId());

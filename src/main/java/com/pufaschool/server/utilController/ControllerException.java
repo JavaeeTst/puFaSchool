@@ -19,6 +19,17 @@ import java.util.List;
  */
 @RestControllerAdvice
 public class ControllerException {
+
+
+    /**
+     * 邮箱已存在异常
+     *
+     */
+    @ExceptionHandler(EmailExistException.class)
+    public Result emailExistException(EmailExistException e){
+
+        return Result.error(Status.EMAIL_EXIST_ERR,e.getMessage());
+    }
     /**
      * 用户未找到异常
      *

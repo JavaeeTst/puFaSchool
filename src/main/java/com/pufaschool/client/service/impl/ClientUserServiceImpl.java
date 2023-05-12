@@ -52,6 +52,11 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserDao, PuFaUser> 
 
         PuFaUser puFaUser = baseMapper.selectOne(wrapper);
 
+        if(puFaUser==null){
+
+            throw new UsernameNotFoundExceptions("你干嘛,哎呦,用户名有问题");
+        }
+
         //判断旧密码是否与数据库密码一致
         if (!puFaUser.getPassword().equals(oldPassword)) {
 
@@ -63,7 +68,7 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserDao, PuFaUser> 
             throw new PasswordErrorException("旧密码不能与新密码一致");
         }
         //再次匹配两次密码输入是否一致
-        if(sysUserUpdatePasswordVo.getNewPassword().equals(sysUserUpdatePasswordVo.getConfirmNewPassword())){
+        if(!sysUserUpdatePasswordVo.getNewPassword().equals(sysUserUpdatePasswordVo.getConfirmNewPassword())){
 
             throw new PasswordErrorException("两次密码不一致");
         }

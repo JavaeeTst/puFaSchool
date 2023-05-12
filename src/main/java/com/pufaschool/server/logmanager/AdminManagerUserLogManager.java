@@ -66,7 +66,7 @@ public class AdminManagerUserLogManager {
             Claims claims = JWTUtils.checkToken(token);
 
             //获取token里面的userId
-            Long userId = (Long) claims.get("userId");
+            Long userId = Long.valueOf((Long) claims.get("userId"));
 
             //再次查询用户的角色
             List<PuFaRole> roleByUsernameOrUserId = roleService.getRoleByUsernameOrUserId(null, Long.valueOf(userId));

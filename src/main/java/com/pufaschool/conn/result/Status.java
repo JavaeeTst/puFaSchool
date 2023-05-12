@@ -31,6 +31,8 @@ public class Status {
     public static final Integer YZM_ERR = 209;
     //邮箱未找到
     public static final Integer EMAIL_NOT_FOUND = 210;
+    //邮箱不存在异常
+    public static final Integer EMAIL_EXIST_ERR=211;
     //权限不足
     public static final Integer NO_AUTHORITY = 403;
     //参数异常
@@ -51,5 +53,6 @@ public class Status {
     public static final Integer TOKEN_NULL = 410;
     //非管理员异常
     public static final Integer NON_ADMIN = 411;
+
 
 }

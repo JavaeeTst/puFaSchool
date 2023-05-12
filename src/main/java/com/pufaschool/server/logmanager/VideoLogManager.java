@@ -63,7 +63,7 @@ public class VideoLogManager {
         } else {
 
             //解析token，获取管理员id
-            Long userId = (Long) JWTUtils.checkToken(token).get("userId");
+            Long userId = Long.valueOf((Long) JWTUtils.checkToken(token).get("userId"));
 
             //取出管理员信息
             PuFaUser userById = userService.getUserById(userId);

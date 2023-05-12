@@ -69,7 +69,7 @@ public class CarouselLogManager {
             Claims claims = JWTUtils.checkToken(token);
 
             //去除token里面的id
-            Long userId = (Long) claims.get("userId");
+            Long userId =Long.valueOf((Long) claims.get("userId"));
 
             //取出管理员的信息
             PuFaUser userById = userService.getUserById(Long.valueOf(userId));

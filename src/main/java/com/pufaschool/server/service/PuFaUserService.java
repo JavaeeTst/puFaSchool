@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pufaschool.conn.domain.PuFaUser;
+import com.pufaschool.conn.domain.vo.EmailVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,5 +77,8 @@ public interface PuFaUserService extends IService<PuFaUser> {
 
     //查询被删除的用户
     List<PuFaUser> getDeleteUser();
+
+    //用户邮箱修改
+    boolean updateUserEmailByUserId(EmailVo vo);
 
 }

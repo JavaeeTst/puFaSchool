@@ -30,7 +30,7 @@ public class WebErrorController {
     @RequestMapping("/error/500")
     public Result error500() {
 
-        return Result.error(Status.SERVER_ERR, "服务器异常，请联系管理员");
+        return Result.error(Status.SERVER_ERR, "你干嘛,哎呦(服务器异常，请联系管理员)");
     }
 
     @RequestMapping("/error/403")

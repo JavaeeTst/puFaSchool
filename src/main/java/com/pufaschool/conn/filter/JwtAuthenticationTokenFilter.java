@@ -68,7 +68,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         //取出userId
-        Integer id = (Integer) claims.get("userId");
+        Long id = Long.valueOf((Integer) claims.get("userId"));
 
         //取出username
         String username = (String) claims.get("username");

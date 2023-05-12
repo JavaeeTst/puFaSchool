@@ -2,12 +2,14 @@ package com.pufaschool.client.controller;
 
 import com.pufaschool.client.service.ClientUserService;
 import com.pufaschool.conn.domain.PuFaUser;
+import com.pufaschool.conn.domain.vo.EmailVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 import com.pufaschool.conn.result.Result;
 import com.pufaschool.conn.result.Status;
 import com.pufaschool.conn.utils.CodeUtil;
 import com.pufaschool.conn.utils.JWTUtils;
 import com.pufaschool.server.service.PuFaUserService;
+import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,18 @@ public class ClientUserController {
     private RedisTemplate redisTemplate;
 
 
+    /**
+     * 用户修改邮箱
+     */
+    @ApiOperation("用户修改邮箱")
+    @PostMapping("/updateUserEmailByUserId")
+    public Result updateUserEmailByUserId(@RequestBody EmailVo vo){
+
+        boolean result = serverUserService.updateUserEmailByUserId(vo);
+
+
+        return result?Result.success("修改成功"):Result.error(Status.ERROR,"修改失败");
+    }
 
     /**
      * 用户注册接口

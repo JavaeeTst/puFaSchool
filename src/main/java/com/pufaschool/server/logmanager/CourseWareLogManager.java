@@ -52,7 +52,7 @@ public class CourseWareLogManager {
     public void courseWareLogMapper(JoinPoint point) {
 
         //先获取用户id
-        Long userId = (Long) JWTUtils.checkToken(request.getHeader("token")).get("userId");
+        Long userId = Long.valueOf((Long) JWTUtils.checkToken(request.getHeader("token")).get("userId"));
 
         //在使用id查询角色
         List<PuFaRole> roleByUsernameOrUserId = roleService.getRoleByUsernameOrUserId(null, userId);
