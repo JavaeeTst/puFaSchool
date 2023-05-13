@@ -161,7 +161,8 @@
         from t_user as u
                  inner join t_user_role as ur on u.id = ur.user_id
                  inner join t_role as r on r.id = ur.role_id
-        where r.role_code = 'ADMIN' and u.is_delete=0
+        where r.role_code = 'ADMIN'
+          and u.is_delete = 0
     </select>
     <update id="modifyUserStatus">
         update t_user
@@ -169,9 +170,44 @@
         where id = #{userId}
     </update>
     <select id="findDeleteUser" resultType="pufauser">
-        select id, username, real_name, password, phone_num, avatar, status, email, total_integration, create_time, update_time, is_delete, id_card, native, home_address from t_user where is_delete=1
+        select id,
+               username,
+               real_name,
+               password,
+               phone_num,
+               avatar,
+               status,
+               email,
+               total_integration,
+               create_time,
+               update_time,
+               is_delete,
+               id_card,
+               native,
+               home_address
+        from t_user
+        where is_delete = 1
     </select>
     <update id="modifyUserEmailByUserId">
-        update  t_user set email=#{vo.oldEmail} where id=#{vo.userId}
+        update t_user
+        set email=#{vo.oldEmail}
+        where id = #{vo.userId}
     </update>
+    <select id="findUserByUserAttribute" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select
+        from t_user
+        where is_delete = 0
+        <if test="vo.createTime!=null and vo.createTime!=''">
+            and create_time=#{vo.createTime}
+        </if>
+        <if test="vo.username!=null and vo.username!=''">
+            and username=#{vo.username}
+        </if>
+        <if test="vo.status!=null and vo.status!=''">
+            and status=#{vo.status}
+        </if>
+        <if test="vo.email!=null and vo.email!=''">
+            and email=#{vo.email}
+        </if>
+    </select>
 </mapper>

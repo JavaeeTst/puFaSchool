@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.BaseEntity;
 import com.pufaschool.conn.domain.vo.EmailVo;
+import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
 import com.pufaschool.conn.exception.*;
 import com.pufaschool.conn.utils.JWTUtils;
 import com.pufaschool.server.dao.PuFaUserDao;
@@ -600,6 +601,19 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         boolean result = baseMapper.modifyUserEmailByUserId(vo);
 
         return result;
+    }
+
+    /**
+     * 按用户属性查询用户
+     * @param vo
+     * @return
+     */
+    @Override
+    public List<PuFaUser> getUserByUserAttribute(SysUserAttributeVo vo) {
+
+        List<PuFaUser> userByUserAttribute = baseMapper.findUserByUserAttribute(vo);
+
+        return userByUserAttribute;
     }
 
 }

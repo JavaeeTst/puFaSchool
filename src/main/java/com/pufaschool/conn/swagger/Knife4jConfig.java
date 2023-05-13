@@ -58,7 +58,7 @@ public class Knife4jConfig {
                 .title("后台管理系统Api")
                 .description("本文档详细的介绍每个接口的功能，登录之后会返回一个token，每次访问请求请务必把那个token放入到请求头里面来")
                 .version("1.0")
-                .contact(new Contact("dmr", "http://dmr.com", "dmr@qq.com"))
+                .contact(new Contact("丁某人", "http://dmr.com", "dmr@qq.com"))
                 .termsOfServiceUrl("后台管理文档")
                 .build();
     }

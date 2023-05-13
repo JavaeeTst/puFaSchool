@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.EmailVo;
+import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,5 +81,8 @@ public interface PuFaUserService extends IService<PuFaUser> {
 
     //用户邮箱修改
     boolean updateUserEmailByUserId(EmailVo vo);
+
+    //按用户属性查询用户
+    List<PuFaUser> getUserByUserAttribute(SysUserAttributeVo vo);
 
 }

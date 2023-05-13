@@ -22,6 +22,17 @@ public class ControllerException {
 
 
     /**
+     * 删除异常
+     */
+    @ExceptionHandler(DeleteException.class)
+    public Result deleteException(DeleteException e){
+
+
+        return Result.error(Status.DELETE_ERR,e.getMessage());
+
+    }
+
+    /**
      * 邮箱已存在异常
      *
      */

@@ -92,6 +92,8 @@ upload-textCover: /text/textCover
 url-pattern: https://4w1245d049.hsk.top
 #切片文件url（临时存储路径(视频)）
 upload-chunk: /video/chunk
+#管理员默认头像上传
+
 
 
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.EmailVo;
+import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -53,6 +54,9 @@ public interface PuFaUserDao extends BaseMapper<PuFaUser> {
 
     //用户邮箱修改
     boolean modifyUserEmailByUserId(@Param("vo") EmailVo vo);
+
+    //按用户信息查询用户(创建时间，状态，用户名等)
+    List<PuFaUser> findUserByUserAttribute(@Param("vo")SysUserAttributeVo vo);
 
 
 }
