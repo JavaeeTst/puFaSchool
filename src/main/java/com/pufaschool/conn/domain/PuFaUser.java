@@ -41,7 +41,7 @@ public class PuFaUser extends BaseEntity {
     @NotNull(message = "邮箱不能为空")
     private String email;
 
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态(0正常,1禁用)")
     private Integer status;
 
     @ApiModelProperty("总积分")

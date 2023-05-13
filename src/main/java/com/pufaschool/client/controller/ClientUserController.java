@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Api(tags = "用户注册(前端)")
+@Api(tags = "普法用户接口(前端)")
 @RequestMapping("system/puFaSchool/client/user")
 @RestController
 public class ClientUserController {

@@ -161,7 +161,7 @@
         from t_user as u
                  inner join t_user_role as ur on u.id = ur.user_id
                  inner join t_role as r on r.id = ur.role_id
-        where r.role_code = 'ADMIN'
+        where r.role_code = 'ADMIN' and u.is_delete=0
     </select>
     <update id="modifyUserStatus">
         update t_user

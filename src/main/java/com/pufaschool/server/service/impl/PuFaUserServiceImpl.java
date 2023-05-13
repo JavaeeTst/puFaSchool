@@ -545,6 +545,8 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
 
         wrapper.eq(PuFaUser::getUsername,username);
 
+        wrapper.eq(PuFaUser::getStatus,0);
+
         PuFaUser getUserByUsername = this.getOne(wrapper);
 
         return getUserByUsername;
