@@ -38,4 +38,8 @@ public interface PuFaVideoService extends IService<PuFaVideo> {
 
     //视频浏览量+1每次点击视频发送请求
     void videoPageViews(Long id);
+
+    //模糊查询视频
+    List<PuFaVideo> getVideoByVideoAttribute(String key);
+
 }

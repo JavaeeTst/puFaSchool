@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags = "普法视频接口(后端)")
 @RestController
 @RequestMapping("/system/puFaSchool/server/video")
@@ -19,6 +21,19 @@ public class VideoController {
     @Autowired
     private PuFaVideoService videoServicel;
 
+
+    /**
+     * 模糊查询视频
+     */
+    @ApiOperation("模糊查询视频(视频名称等其他)")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    @GetMapping("/getVideoByVideoAttribute/{key}")
+    public Result getVideoByVideoAttribute(@PathVariable String key){
+
+        List<PuFaVideo> videoByVideoAttribute = videoServicel.getVideoByVideoAttribute(key);
+
+        return Result.success(videoByVideoAttribute);
+    }
     /**
      * 视频查询
      *

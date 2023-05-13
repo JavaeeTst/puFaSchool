@@ -54,5 +54,8 @@ public class Status {
     //非管理员异常
     public static final Integer NON_ADMIN = 411;
 
+    //删除异常
+    public  static final Integer DELETE_ERR=206;
+
 
 }

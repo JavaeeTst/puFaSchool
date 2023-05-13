@@ -28,5 +28,8 @@ public interface PuFaVideoDao extends BaseMapper<PuFaVideo> {
     //视频浏览量增加(每点击一次发送一次请求+1)
     void videoPageView(@Param("id") Long id);
 
+    //视频模糊查询
+    List<PuFaVideo> findVideoByVideoAttribute(@Param("key") String key);
+
 
 }

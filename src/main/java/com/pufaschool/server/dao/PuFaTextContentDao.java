@@ -11,5 +11,6 @@ import java.util.List;
  */
 public interface PuFaTextContentDao extends BaseMapper<PuFaTextContent> {
 
+      //获取文章内容(按文章id)
       List<SysTextContentVo> findTextContentByTextId(Long textId);
 }

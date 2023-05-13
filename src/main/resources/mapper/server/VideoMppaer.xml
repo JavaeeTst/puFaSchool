@@ -56,6 +56,31 @@
         where video_path = #{path}
     </select>
     <update id="videoPageView">
-        update t_video set page_views=page_views+1 where id=#{id}
+        update t_video
+        set page_views=page_views + 1
+        where id = #{id}
     </update>
+    <select id="findVideoByVideoAttribute" resultType="com.pufaschool.conn.domain.PuFaVideo">
+        select id,
+               title,
+               video_path,
+               video_name,
+               video_status,
+               video_explain,
+               video_description,
+               video_uploader,
+               integration,
+               update_time,
+               create_time,
+               is_delete,
+               video_cover,
+               lecturer,
+               learn_type,
+               page_views
+        from t_video
+        where learn_type like concat('%', #{key}, '%')
+           or video_name like concat('%', #{key}, '%')
+           or video_uploader like concat('%',#{key},'%')
+           or video_description like concat('%',#{key},'%')
+    </select>
 </mapper>

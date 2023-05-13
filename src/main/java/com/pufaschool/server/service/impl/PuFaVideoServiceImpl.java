@@ -49,7 +49,7 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
     public boolean addPuFaVideo(PuFaVideo puFaVideo) {
 
         //先按视频封面路径查询
-        PuFaVideo videoByVideoCover = baseMapper.findVideoByVideoCover(puFaVideo.getVideCover());
+        PuFaVideo videoByVideoCover = baseMapper.findVideoByVideoCover(puFaVideo.getVideoCover());
 
         if(videoByVideoCover!=null){
 
@@ -183,5 +183,18 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
     @Override
     public void videoPageViews(Long id) {
         baseMapper.videoPageView(id);
+    }
+
+    /**
+     * 模糊查询视频
+     * @param key
+     * @return
+     */
+    @Override
+    public List<PuFaVideo> getVideoByVideoAttribute(String key) {
+
+        List<PuFaVideo> videoByVideoAttribute = baseMapper.findVideoByVideoAttribute(key);
+
+        return videoByVideoAttribute;
     }
 }

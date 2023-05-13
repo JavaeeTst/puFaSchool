@@ -3,6 +3,7 @@ package com.pufaschool.server.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.domain.PuFaText;
 import com.pufaschool.conn.domain.vo.SysTextContentVo;
+import com.pufaschool.conn.exception.DeleteException;
 import com.pufaschool.server.dao.PuFaTextDao;
 import com.pufaschool.server.service.PuFaTextContentService;
 import com.pufaschool.server.service.PuFaTextService;
@@ -44,6 +45,16 @@ public class PuFaTextServiceImpl extends ServiceImpl<PuFaTextDao, PuFaText> impl
     @Override
     public boolean deleteByTextId(Long id) {
 
+        //先查询该文章是否有子文章
+        List<SysTextContentVo> textContextByTextId = contentService.getTextContextByTextId(id);
+
+        //如果该文章有子文章则无法删除
+        if (textContextByTextId.size()>0) {
+
+            throw new DeleteException("该文章还有子文章存在,请先删除子文章");
+        }
+
+       //程序走到这里没有问题，代表可以删除
         boolean result = this.removeById(id);
 
         return result;
@@ -56,6 +67,7 @@ public class PuFaTextServiceImpl extends ServiceImpl<PuFaTextDao, PuFaText> impl
      */
     @Override
     public boolean updateTextByTextId(PuFaText text) {
+
 
         boolean result = this.updateById(text);
 
@@ -106,6 +118,10 @@ public class PuFaTextServiceImpl extends ServiceImpl<PuFaTextDao, PuFaText> impl
         return textByAttribute;
     }
 
+    /**
+     * 文章浏览量加1
+     * @param id
+     */
     @Override
     public void textPageViews(Long id) {
 
