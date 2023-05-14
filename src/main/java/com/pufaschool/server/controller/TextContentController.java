@@ -1,6 +1,7 @@
 package com.pufaschool.server.controller;
 
 import com.pufaschool.conn.domain.PuFaTextContent;
+import com.pufaschool.conn.domain.vo.SysTextContentVo;
 import com.pufaschool.conn.result.Result;
 import com.pufaschool.conn.result.Status;
 import com.pufaschool.server.service.PuFaTextContentService;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "文章内容")
+import java.util.List;
+
+@Api(tags = "普法文章内容")
 @RestController
 @RequestMapping("/system/puFaSchool/server/TextContent")
 public class TextContentController {
@@ -19,15 +22,19 @@ public class TextContentController {
     private PuFaTextContentService contentService;
 
 
+
+
     /**
      * 文章内容添加
      * @param puFaTextContent
      * @return
      */
-    @GetMapping("/addTextContent")
+    @PostMapping("/addTextContent")
     @ApiOperation("添加文章内容")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
     public Result addTextContent(@RequestBody PuFaTextContent puFaTextContent){
+
+        System.out.println(puFaTextContent);
 
         boolean result = contentService.addTextContent(puFaTextContent);
 

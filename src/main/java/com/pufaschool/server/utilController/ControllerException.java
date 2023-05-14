@@ -22,6 +22,22 @@ public class ControllerException {
 
 
     /**
+     * 修改异常
+     */
+    @ExceptionHandler(UpdateException.class)
+    public Result updateException(UpdateException e){
+
+        return Result.error(Status.UPDATE_ERR,e.getMessage());
+    }
+    /**
+     * 添加异常
+     */
+    @ExceptionHandler(AddException.class)
+    public Result addException(AddException e){
+
+        return Result.error(Status.ADD_ERR,e.getMessage());
+    }
+    /**
      * 删除异常
      */
     @ExceptionHandler(DeleteException.class)

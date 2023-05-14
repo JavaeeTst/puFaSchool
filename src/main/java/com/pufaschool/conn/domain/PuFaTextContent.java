@@ -3,6 +3,7 @@ package com.pufaschool.conn.domain;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.pufaschool.conn.BaseEntity;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@TableName("t_text_illustration")
-@Api("普法文章内容")
+@TableName("t_text_content")
+@ApiModel("普法文章内容")
 public class PuFaTextContent extends BaseEntity {
 
 

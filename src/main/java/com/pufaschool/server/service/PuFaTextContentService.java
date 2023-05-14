@@ -23,5 +23,8 @@ public interface PuFaTextContentService extends IService<PuFaTextContent> {
     //查询文章内容名字和文章内容id(按文章id)
     List<SysTextContentVo> getTextContextByTextId(Long id);
 
+    //查询文章内容（按id查询）
+    PuFaTextContent getTextContentByTextContentId(Long textContentId);
+
 
 }

@@ -43,7 +43,7 @@ public class UserController {
      * 按用户属性查询用户
      */
     @ApiOperation("按用户属性查询用户")
-    @GetMapping("/getUserByUserAttribute")
+    @PostMapping("/getUserByUserAttribute")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
     public Result getUserByUserAttribute(@RequestBody SysUserAttributeVo vo){
 

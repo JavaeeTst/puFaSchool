@@ -5,7 +5,23 @@
     <select id="findTextContentByTextId" resultType="com.pufaschool.conn.domain.vo.SysTextContentVo">
         select content_name, id
         from t_text_content
-        where text_id = #{textId} order by create_time asc
+        where text_id = #{textId}
+        order by create_time asc
+    </select>
+    <select id="findTextContentByTextContentId" resultType="com.pufaschool.conn.domain.PuFaTextContent">
+        select id,
+               text_id,
+               text_content,
+               create_time,
+               text_sort,
+               update_time,
+               delete_time,
+               content_name,
+               integration,
+               is_delete
+        from t_text_content
+        where id = #{textContentId}
+          and is_delete = 0
     </select>
 
 </mapper>

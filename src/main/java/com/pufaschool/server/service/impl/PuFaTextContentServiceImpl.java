@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.domain.PuFaTextContent;
 import com.pufaschool.conn.domain.vo.SysTextContentVo;
+import com.pufaschool.conn.exception.AddException;
 import com.pufaschool.server.dao.PuFaTextContentDao;
 import com.pufaschool.server.service.PuFaTextContentService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,11 @@ public class PuFaTextContentServiceImpl extends ServiceImpl<PuFaTextContentDao, 
      */
     @Override
     public boolean addTextContent(PuFaTextContent content) {
+        //文章内容名称不能为null
+        if (content.getContentName()==null) {
 
+            throw new AddException("请输入文章内容名字");
+        }
         boolean save = this.save(content);
 
         return save;
@@ -66,5 +71,19 @@ public class PuFaTextContentServiceImpl extends ServiceImpl<PuFaTextContentDao, 
         List<SysTextContentVo> textContentByTextId = baseMapper.findTextContentByTextId(id);
 
         return textContentByTextId;
+    }
+
+    /**
+     * 按文章内容id查询文章内容
+     * @param textContentId
+     * @return
+     */
+    @Override
+    public PuFaTextContent getTextContentByTextContentId(Long textContentId) {
+
+        PuFaTextContent textContentByTextContentId = baseMapper.findTextContentByTextContentId(textContentId);
+
+
+        return textContentByTextContentId;
     }
 }

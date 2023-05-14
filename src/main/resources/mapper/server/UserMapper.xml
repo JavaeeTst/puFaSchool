@@ -194,20 +194,21 @@
         where id = #{vo.userId}
     </update>
     <select id="findUserByUserAttribute" resultType="com.pufaschool.conn.domain.PuFaUser">
-        select
+        select id, username, real_name, password, phone_num, avatar, status, email, total_integration, create_time,
+        update_time, is_delete, id_card, native, home_address
         from t_user
         where is_delete = 0
         <if test="vo.createTime!=null and vo.createTime!=''">
             and create_time=#{vo.createTime}
         </if>
         <if test="vo.username!=null and vo.username!=''">
-            and username=#{vo.username}
+            and username like concat('%',#{vo.username},'%')
         </if>
         <if test="vo.status!=null and vo.status!=''">
             and status=#{vo.status}
         </if>
         <if test="vo.email!=null and vo.email!=''">
-            and email=#{vo.email}
+            and like concat('%',#{vo.email},'%')
         </if>
     </select>
 </mapper>

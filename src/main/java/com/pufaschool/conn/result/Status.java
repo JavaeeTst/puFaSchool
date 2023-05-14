@@ -26,7 +26,7 @@ public class Status {
     //角色重复
     public static final Integer ROLE_REPETITION = 205;
     //方法参数无效(数据校验)
-    public static final Integer METHOD_PARAMETER_ERR = 208;
+    public static final Integer METHOD_PARAMETER_ERR = 212;
     //验证码异常
     public static final Integer YZM_ERR = 209;
     //邮箱未找到
@@ -56,6 +56,12 @@ public class Status {
 
     //删除异常
     public  static final Integer DELETE_ERR=206;
+
+    //添加异常
+    public static final Integer ADD_ERR=207;
+
+    //修改异常
+    public static final Integer UPDATE_ERR=208;
 
 
 }
