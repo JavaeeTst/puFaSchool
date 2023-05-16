@@ -19,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -251,9 +252,9 @@ public class UserController {
     @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
     @PostMapping("/updateUserStatus/{status}/{userId}")
     @ApiOperation("启用(禁用)用户")
-    public Result updateUserStatus(@PathVariable Integer status, @PathVariable Long userId) {
+    public Result updateUserStatus(@PathVariable Integer status, @PathVariable Long userId, HttpServletRequest request) {
 
-        boolean result = puFaUserService.updateUserStatus(status, userId);
+        boolean result = puFaUserService.updateUserStatus(status, userId,request);
 
         return Result.success(result ? status == 1 ? "冻结成功" : "冻结失败" : status == 0 ? "启用成功" : "启用失败");
     }

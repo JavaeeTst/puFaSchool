@@ -1,5 +1,7 @@
 package com.pufaschool.conn.config;
 
+import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
+import com.baomidou.mybatisplus.extension.incrementer.H2KeyGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +26,13 @@ public class MybatisConfig {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
 
         return interceptor;
+    }
+    /**
+     * mybatis-plus防止传给前端id精度丢失
+     */
+    @Bean
+    public IKeyGenerator keyGenerator(){
+
+        return new H2KeyGenerator();
     }
 }

@@ -1,6 +1,7 @@
 package com.pufaschool.conn.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pufaschool.conn.BaseEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
@@ -18,6 +19,7 @@ public class PuFaTextContent extends BaseEntity {
 
 
     @ApiModelProperty("文章id(父id)")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long textId;
 
     @ApiModelProperty("文章内容(使用富文本)")

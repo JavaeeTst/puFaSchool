@@ -18,8 +18,11 @@ public interface PuFaRoleDao extends BaseMapper<PuFaRole> {
     //给用户分配角色
     boolean assignRole(@Param("roleId") Long roleId, @Param("userId") Long userId);
 
-    //取消解封用户角色
+    //取消用户角色
     boolean modifyByUserIdAndRoleId(@Param("vo") SysUserRoleVo vo);
+
+    //使用角色编码查询角色(项目内部私有不对外暴露)
+    PuFaRole findRoleByRoleCode(@Param("roleCode") String roleCode);
 
 }
 

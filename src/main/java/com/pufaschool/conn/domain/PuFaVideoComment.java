@@ -2,6 +2,7 @@ package com.pufaschool.conn.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pufaschool.conn.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,10 +23,12 @@ public class PuFaVideoComment extends BaseEntity implements Serializable {
 
     @ApiModelProperty("用户id")
     @TableField("user_id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     @ApiModelProperty("视频id")
     @TableField("video_id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long videoId;
 
     @ApiModelProperty("评论")

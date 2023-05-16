@@ -57,6 +57,7 @@ public class PuFaTextContentServiceImpl extends ServiceImpl<PuFaTextContentDao, 
 
         boolean result = this.updateById(content);
 
+
         return result;
     }
 

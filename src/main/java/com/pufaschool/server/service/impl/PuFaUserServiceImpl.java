@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.BaseEntity;
+import com.pufaschool.conn.domain.PuFaRole;
 import com.pufaschool.conn.domain.vo.EmailVo;
 import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
 import com.pufaschool.conn.exception.*;
@@ -12,6 +13,7 @@ import com.pufaschool.conn.utils.JWTUtils;
 import com.pufaschool.server.dao.PuFaUserDao;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
+import com.pufaschool.server.service.PuFaRoleService;
 import com.pufaschool.server.service.PuFaUserService;
 import com.pufaschool.conn.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,10 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
      */
     @Autowired
     private JavaMailSender sender;
+
+    /**
+     * 缓存对象
+     */
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -46,6 +52,11 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
      */
     @Value("${spring.mail.username}")
     private String username;
+    /**
+     * 角色业务层对象
+     */
+    @Autowired
+    private PuFaRoleService roleService;
 
     /**
      * 用户登录
@@ -420,8 +431,6 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         //然后查询
         PuFaUser userById = this.getUserById(userId);
 
-        //密码设置不可见
-        userById.setPassword("*******");
 
         return userById;
     }
@@ -474,7 +483,32 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
      * @return
      */
     @Override
-    public boolean updateUserStatus(Integer status, Long userId) {
+    public boolean updateUserStatus(Integer status, Long userId,HttpServletRequest request) {
+
+        //取出自己的id
+        Long selfId = Long.valueOf((Long) JWTUtils.checkToken(request.getHeader("token")).get("userId"));
+
+        //在查询自己的角色
+        List<PuFaRole> roleCode = (List<PuFaRole>) redisTemplate.opsForValue().get("roleCode");
+
+        //如果自己不是超级管理员
+        if(!roleCode.contains("SUPER_ADMIN")){
+
+            //在看看要冻结用户的角色
+            List<PuFaRole> roleByUsernameOrUserId = roleService.getRoleByUsernameOrUserId(null, userId);
+
+            //如果被冻结用户是管理员就抛异常
+            if(roleByUsernameOrUserId.contains("ADMIN")){
+
+                throw new InsufficientAuthorityException("您没有权限禁用(启用)管理员");
+            }
+
+        }
+        //如果禁用自己抛异常
+        if (selfId.equals(userId)) {
+
+            throw new UserErrorException("请不要禁用自己");
+        }
 
         boolean result = baseMapper.modifyUserStatus(status, userId);
 
@@ -487,51 +521,7 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
     @Override
     public List<String> getUserAndAdminDefaultAvatar(String role) {
 
-        //定义一个存头像的容器;
-        List<String> avatars=new ArrayList<>();
-
-        String url = "static/image/default/user";
-
-        //如果是管理元,则对应的是管理员的头像
-        if("ADMIN".equals(role) || "SUPER_ADMIN".equals(role)){
-
-            url="static/image/default/admin";
-        }
-
-        //获取文件的路径
-        String path = Thread.currentThread().getContextClassLoader().getResource(url).getPath();
-
-        System.out.println(path);
-        //拿到目录
-        File file=new File(url);
-
-
-        //遍历文件的所有头像
-        File[] files = file.listFiles();
-
-
-        //如果文件不为null
-        if(files!=null){
-
-            //遍历
-            for (File file1 : files) {
-
-                //获取默认头像的绝对路径
-                String path1 = file1.getPath();
-
-                System.out.println(path1);
-
-                //在拼接成服务器地址
-                String avatar=this.url+"/"+path1.substring(path1.lastIndexOf("image"));
-
-                String subAvatar = avatar.replaceAll("\\\\", "/");
-
-                //存入容器里面
-                avatars.add(subAvatar);
-            }
-        }
-
-        return avatars;
+        return null;
     }
 
     /**

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pufaschool.server.dao.PuFaUserDao">
+
+    <select id="findUserByUserRole" resultType="com.pufaschool.conn.domain.PuFaUser">
+        select u.id, u.username
+        from t_user as u,
+             t_user_role as ur,
+             t_role r
+        where u.id = ur.user_id
+          and r.id = ur.role_id
+          and r.role_code = 'SUPER_ADMIN'
+    </select>
     <select id="findUserByUsernameAndPassword" resultType="com.pufaschool.conn.domain.PuFaUser">
         select id,
                username,
@@ -208,7 +218,12 @@
             and status=#{vo.status}
         </if>
         <if test="vo.email!=null and vo.email!=''">
-            and like concat('%',#{vo.email},'%')
+            and email like concat('%',#{vo.email},'%')
         </if>
     </select>
+    <update id="modifyUserHighestRole">
+        update t_user
+        set highest_role=#{roleName}
+        where id = #{id}
+    </update>
 </mapper>

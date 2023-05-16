@@ -15,9 +15,9 @@ public interface PuFaRoleService extends IService<PuFaRole> {
     //按用户名称或者用户id(任意一个)查询用户的角色
     List<PuFaRole> getRoleByUsernameOrUserId(String username, Long userId);
 
-    //给用户分配角色
+    //给用户分配管理员角色
     boolean assignRole(Long roleId, Long userId);
 
-    //取消解封用户角色
+    //取消用户管理员角色
     boolean updateByUserIdAndRoleId(SysUserRoleVo vo);
 }

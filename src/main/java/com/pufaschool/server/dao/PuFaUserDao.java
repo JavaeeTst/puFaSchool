@@ -58,5 +58,11 @@ public interface PuFaUserDao extends BaseMapper<PuFaUser> {
     //按用户信息查询用户(创建时间，状态，用户名等)
     List<PuFaUser> findUserByUserAttribute(@Param("vo")SysUserAttributeVo vo);
 
+    //修改用户最高角色名称(不对外暴露接口,用于用户变成管理员之后就执行这条sql)
+    boolean modifyUserHighestRole(@Param("highestRole") String highestRole,@Param("id") Long id);
+
+    //查询超级管理员信息(只允许在项目中私有,不对外暴露)
+    PuFaUser findUserByUserRole();
+
 
 }

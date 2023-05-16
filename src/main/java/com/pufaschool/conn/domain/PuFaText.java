@@ -3,6 +3,7 @@ package com.pufaschool.conn.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pufaschool.conn.BaseEntity;
 import com.pufaschool.conn.domain.vo.SysTextContentVo;
 import io.swagger.annotations.Api;
@@ -29,6 +30,7 @@ public class PuFaText extends BaseEntity {
     private String upload;
 
     @ApiModelProperty("学习类型")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long learnType;
 
     @ApiModelProperty("总积分")

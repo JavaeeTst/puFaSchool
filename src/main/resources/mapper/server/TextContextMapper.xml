@@ -5,7 +5,7 @@
     <select id="findTextContentByTextId" resultType="com.pufaschool.conn.domain.vo.SysTextContentVo">
         select content_name, id
         from t_text_content
-        where text_id = #{textId}
+        where is_delete=0 and text_id = #{textId}
         order by create_time asc
     </select>
     <select id="findTextContentByTextContentId" resultType="com.pufaschool.conn.domain.PuFaTextContent">

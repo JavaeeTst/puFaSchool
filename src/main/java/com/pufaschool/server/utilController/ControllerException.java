@@ -22,6 +22,15 @@ public class ControllerException {
 
 
     /**
+     * 权限不足异常
+     */
+    @ExceptionHandler(InsufficientAuthorityException.class)
+    public Result insufficientAuthorityException(InsufficientAuthorityException e){
+
+        return Result.error(Status.NO_AUTHORITY,e.getMessage());
+    }
+
+    /**
      * 修改异常
      */
     @ExceptionHandler(UpdateException.class)

@@ -1,6 +1,7 @@
 package com.pufaschool.conn.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pufaschool.conn.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,6 +21,7 @@ public class PuFaLog extends BaseEntity {
 
     @ApiModelProperty("用户id")
     @TableField("user_id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     @ApiModelProperty("日志信息")

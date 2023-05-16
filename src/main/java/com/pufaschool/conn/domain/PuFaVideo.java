@@ -2,6 +2,7 @@ package com.pufaschool.conn.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pufaschool.conn.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -60,6 +61,7 @@ public class PuFaVideo extends BaseEntity implements Serializable {
     private String lecturer;
 
     @ApiModelProperty("学习类型")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long learnType;
 
 

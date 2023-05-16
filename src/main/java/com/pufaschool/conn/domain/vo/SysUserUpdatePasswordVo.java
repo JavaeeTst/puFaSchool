@@ -1,5 +1,6 @@
 package com.pufaschool.conn.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,5 +39,6 @@ public class SysUserUpdatePasswordVo implements Serializable {
 
     //用户id
     @ApiModelProperty("用户id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 }

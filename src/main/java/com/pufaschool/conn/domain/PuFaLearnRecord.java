@@ -2,6 +2,7 @@ package com.pufaschool.conn.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,9 +23,11 @@ import java.util.Date;
 public class PuFaLearnRecord {
 
     @ApiModelProperty("用户id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     @ApiModelProperty("学习类型id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @TableField("t_learn_type")
     private Long learnTypeId;
 

@@ -1,5 +1,6 @@
 package com.pufaschool.conn.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class SysUserDefaultAvatar {
 
     @ApiModelProperty("id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @ApiModelProperty("角色")

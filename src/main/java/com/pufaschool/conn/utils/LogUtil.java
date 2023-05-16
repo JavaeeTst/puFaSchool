@@ -19,4 +19,13 @@ public class LogUtil {
 
     //登录日志
     public static final Integer LOGIN_LOG=5;
+
+    //正常状态
+    public static final Integer CONN_IS_CODE=0;
+
+    //非正常状态(已删除冻结)
+    public static final Integer CONN_NO_CODE=1;
+
+    //同意状态
+    public static final Integer AGREE=2;
 }

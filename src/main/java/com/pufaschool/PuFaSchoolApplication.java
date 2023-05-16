@@ -1,5 +1,6 @@
 package com.pufaschool;
 
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAspectJAutoProxy
 //启用事务
 @EnableTransactionManagement
+//启用log4j
+@Slf4j
 public class PuFaSchoolApplication {
     public static void main(String[] args) {
 

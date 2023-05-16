@@ -1,5 +1,6 @@
 package com.pufaschool.conn.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class SysUserRoleVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     //用户id
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     //角色id

@@ -1,17 +1,34 @@
 package com.pufaschool.server.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pufaschool.conn.exception.InsufficientAuthorityException;
+import com.pufaschool.conn.utils.RoleUtil;
 import com.pufaschool.server.dao.PuFaRoleDao;
 import com.pufaschool.conn.domain.PuFaRole;
 import com.pufaschool.conn.domain.vo.SysUserRoleVo;
 import com.pufaschool.conn.exception.RoleRepetitionException;
+import com.pufaschool.server.dao.PuFaUserDao;
 import com.pufaschool.server.service.PuFaRoleService;
+import com.pufaschool.server.service.PuFaUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class PuFaRoleServiceImpl extends ServiceImpl<PuFaRoleDao, PuFaRole> implements PuFaRoleService {
+
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    /**
+     * user业务层对象
+     */
+    @Autowired
+    private PuFaUserDao puFaUserDao;
 
     /**
      * 按用户名获取角色信息
@@ -56,22 +73,28 @@ public class PuFaRoleServiceImpl extends ServiceImpl<PuFaRoleDao, PuFaRole> impl
     }
 
     /**
-     * 更新用户角色(取消和解封)
-     *
+     * 取消用户角色
      * @param vo
      * @return
      */
     @Override
+    @Transactional
     public boolean updateByUserIdAndRoleId(SysUserRoleVo vo) {
+        //先查询该用户的角色
+        List<PuFaRole> roleCode = (List<PuFaRole>) redisTemplate.opsForValue().get("roleCode");
 
-        boolean result = false;
+        //如果不是超级管理员则没有权限取消用户管理员身份(其实也没有啥意义,因为接口已经拦截了,防君子不防小人)
+        if(!roleCode.contains("SUPER_ADMIN")){
 
-        if (vo != null) {
-
-            result = baseMapper.modifyByUserIdAndRoleId(vo);
-
+            throw new InsufficientAuthorityException("抱歉,您没有权限取消该用户管理员的权限");
         }
+        //之后取消用户管理员权限
+        boolean deleteResult = baseMapper.modifyByUserIdAndRoleId(vo);
 
-        return result;
+
+        //同时也把用户的最高角色名改成用户
+        boolean updateResult = puFaUserDao.modifyUserHighestRole(RoleUtil.USER, vo.getRoleId());
+
+        return deleteResult && updateResult;
     }
 }

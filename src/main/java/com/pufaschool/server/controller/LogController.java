@@ -28,7 +28,7 @@ public class LogController {
      */
     @ApiOperation("查询所有用户的日志")
     @GetMapping("/getUserLogAll")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
     public Result getUserLogAll() {
 
         List<PuFaLog> userLogAll = logService.getUserLogAll();

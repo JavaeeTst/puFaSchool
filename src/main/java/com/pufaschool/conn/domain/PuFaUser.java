@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.validation.constraints.NotNull;
 
@@ -59,4 +60,8 @@ public class PuFaUser extends BaseEntity {
     @ApiModelProperty("身份证号")
     @TableField("id_card")
     private String idCard;
+
+    @ApiModelProperty("最高角色")
+    @TableField("highest_role")
+    private String highestRole;
 }

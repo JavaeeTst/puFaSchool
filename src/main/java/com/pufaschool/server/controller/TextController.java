@@ -47,7 +47,7 @@ public class TextController {
 
         boolean result = textService.addText(puFaText);
 
-        return result?Result.success("删除成功"):Result.error(Status.ERROR,"删除失败");
+        return result?Result.success("添加成功"):Result.error(Status.ADD_ERR,"添加失败");
 
     }
     /**

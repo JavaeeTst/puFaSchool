@@ -1,5 +1,6 @@
 package com.pufaschool.conn.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class SysUserResultVo implements Serializable {
 
 
     //用户id
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     //用户名

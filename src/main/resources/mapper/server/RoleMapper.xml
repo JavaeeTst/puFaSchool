@@ -20,10 +20,11 @@
         insert into t_user_role(role_id, user_id)
         values (#{roleId}, #{userId});
     </insert>
-    <update id="modifyByUserIdAndRoleId" parameterType="com.pufaschool.conn.domain.vo.SysUserRoleVo">
-        update t_user_role
-        set is_cancel=#{vo.isCancel}
-        where user_id = #{vo.userId}
-          and role_id = #{vo.roleId}
-    </update>
+    <delete id="modifyByUserIdAndRoleId">
+        delete  from t_user_role where user_id=#{vo.userId} and role_id=#{vo.roleId}
+    </delete>
+    <select id="findRoleByRoleCode" resultType="com.pufaschool.conn.domain.PuFaRole">
+        select id, role_name, role_code from t_role where role_code=#{roleCode}
+    </select>
+
 </mapper>

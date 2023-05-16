@@ -65,7 +65,7 @@ public interface PuFaUserService extends IService<PuFaUser> {
     PuFaUser getUserByAvatar(String avatar);
 
     //冻结(启用)用户
-    boolean updateUserStatus(Integer status,Long userId);
+    boolean updateUserStatus(Integer status,Long userId,HttpServletRequest request);
 
     //用户登录
     PuFaUser login(String username,String password);
@@ -84,5 +84,7 @@ public interface PuFaUserService extends IService<PuFaUser> {
 
     //按用户属性查询用户
     List<PuFaUser> getUserByUserAttribute(SysUserAttributeVo vo);
+
+
 
 }

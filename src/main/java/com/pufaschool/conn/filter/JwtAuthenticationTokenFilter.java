@@ -12,6 +12,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,6 +39,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private PuFaRoleService puFaRoleService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -80,19 +83,40 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (puFaUser == null) {
             throw new UsernameNotFoundExceptions("没有该用户");
         }
-        //查询所以的角色
-        List<PuFaRole> byUsername = puFaRoleService.getRoleByUsernameOrUserId(username, null);
 
-        //定义一个装角色的容器
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        //取出缓存的角色集合
+        List<PuFaRole> byUsername=(List<PuFaRole>) redisTemplate.opsForValue().get("roleCode");
 
-        for (PuFaRole puFaRole : byUsername) {
-            //每次查询一个角色就new一个对象
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + puFaRole.getRoleCode());
 
-            //把角色放入容器里面
-            authorities.add(authority);
+        //如果缓存没有
+        if(byUsername==null){
 
+            //查询所以的角色
+             byUsername = puFaRoleService.getRoleByUsernameOrUserId(username, null);
+
+            //把角色放入缓存
+            redisTemplate.opsForValue().set("roleCode",byUsername);
+        }
+
+
+
+        //从缓存李取出一个装角色的容器
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) redisTemplate.opsForValue().get("authority");
+
+        //如果容器为null
+        if(authorities==null){
+
+            //定义一个存放角色的容器
+            authorities=new ArrayList<>();
+
+            for (PuFaRole puFaRole : byUsername) {
+                //每次查询一个角色就new一个对象
+                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + puFaRole.getRoleCode());
+
+                //把角色放入容器里面
+                authorities.add(authority);
+
+            }
         }
 
         LoginUser user = new LoginUser(puFaUser, authorities);

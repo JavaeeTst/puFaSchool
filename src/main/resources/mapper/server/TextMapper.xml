@@ -16,16 +16,16 @@
         from t_text
         <where>
             <if test="key!=null and key=''">
-                or description like concat('%',#{key},'#')
+                or description like concat('%',#{key},'%')
             </if>
             <if test="key!=null and key=''">
-                or text_info like concat('%',#{key},'#')
+                or text_info like concat('%',#{key},'%')
             </if>
             <if test="key!=null and key=''">
-                or upload like concat('%',#{key},'#')
+                or upload like concat('%',#{key},'%')
             </if>
             <if test="key!=null and key=''">
-                or learn_type like concat('%',#{key},'#')
+                or learn_type like concat('%',#{key},'%')
             </if>
         </where>
     </select>
