@@ -20,4 +20,7 @@ public interface PuFaRoleService extends IService<PuFaRole> {
 
     //取消用户管理员角色
     boolean updateByUserIdAndRoleId(SysUserRoleVo vo);
+
+    //查询所有角色
+    List<PuFaRole> getRoleList();
 }

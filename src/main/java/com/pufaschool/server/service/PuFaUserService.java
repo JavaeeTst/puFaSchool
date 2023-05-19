@@ -79,6 +79,9 @@ public interface PuFaUserService extends IService<PuFaUser> {
     //查询被删除的用户
     List<PuFaUser> getDeleteUser();
 
+    //按id查询被删除的用户
+    PuFaUser getUserByDeleteId(Long deleteId);
+
     //用户邮箱修改
     boolean updateUserEmailByUserId(EmailVo vo);
 

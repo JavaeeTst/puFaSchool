@@ -72,6 +72,44 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
     }
 
     /**
+     * 按id查询被删除的课件
+     * @param deleteId
+     * @return
+     */
+    @Override
+    public PuFaCourseWare getCourseWareByDeleteId(Long deleteId) {
+
+        PuFaCourseWare courseWareByDeleteId = baseMapper.findCourseWareByDeleteId(deleteId);
+
+        return courseWareByDeleteId;
+    }
+
+    /**
+     * 查询所有被删除的课件
+     * @return
+     */
+    @Override
+    public List<PuFaCourseWare> getCourseWareDeleteList() {
+
+        List<PuFaCourseWare> courseWareDeleteList = baseMapper.findCourseWareDeleteList();
+
+        return courseWareDeleteList;
+    }
+
+    /**
+     * 清空被删除的课件
+     * @param ids
+     * @return
+     */
+    @Override
+    public boolean removeCourseWareByIdList(Long[] ids) {
+
+        boolean result = baseMapper.deleteCourseWareByIdList(ids);
+
+        return result;
+    }
+
+    /**
      * 上传课件
      *
      * @param puFaCourseWare
@@ -106,7 +144,7 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
      * @return
      */
     @Override
-    public List<PuFaCourseWare> findCourseWareAll() {
+    public List<PuFaCourseWare> getCourseWareAll() {
 
         List<PuFaCourseWare> puFaCourseWares = baseMapper.selectList(null);
 
@@ -121,13 +159,10 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
      * @return
      */
     @Override
-    public List<PuFaCourseWare> findCourseWareByType(String type) {
+    public List<PuFaCourseWare> getCourseWareByType(Long type) {
 
-        LambdaQueryWrapper<PuFaCourseWare> wrapper = new LambdaQueryWrapper<>();
 
-        wrapper.eq(PuFaCourseWare::getCourserwareType, type);
-
-        List<PuFaCourseWare> puFaCourseWares = baseMapper.selectList(wrapper);
+        List<PuFaCourseWare> puFaCourseWares = baseMapper.findCourseWareByCourseWareType(type);
 
 
         return puFaCourseWares;
@@ -140,7 +175,7 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
      * @return
      */
     @Override
-    public List<PuFaCourseWare> findCourseWreByUploadTime(Date uploadTime) {
+    public List<PuFaCourseWare> getCourseWreByUploadTime(String uploadTime) {
 
         LambdaQueryWrapper<PuFaCourseWare> wrapper = new LambdaQueryWrapper<>();
 
@@ -158,7 +193,7 @@ public class PuFaCourseWareServiceImpl extends ServiceImpl<PuFaCourseWareDao, Pu
      * @return
      */
     @Override
-    public PuFaCourseWare findCourseWareByCourseWarePath(String courseWarePath) {
+    public PuFaCourseWare getCourseWareByCourseWarePath(String courseWarePath) {
 
         LambdaQueryWrapper<PuFaCourseWare> wrapper = new LambdaQueryWrapper<>();
 

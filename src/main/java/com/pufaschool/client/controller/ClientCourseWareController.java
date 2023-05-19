@@ -22,6 +22,17 @@ public class ClientCourseWareController {
 
 
     /**
+     * 按课件类型查询课件
+     */
+    @GetMapping("/getCourseWareByCourseWareType/{courseWareTypeId}")
+    @ApiOperation("按课件类型查询课件")
+    public Result getCourseWareByCourseWareType(@PathVariable Long courseWareTypeId){
+
+        List<PuFaCourseWare> courseWareByType = courseWareService.getCourseWareByType(courseWareTypeId);
+
+        return Result.success(courseWareByType);
+    }
+    /**
      * 批量下载课件
      *
      * @param ids

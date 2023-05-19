@@ -4,12 +4,67 @@
 
 
     <select id="downloadCourseWareById" resultType="string">
-        select courseware_url from t_courseware where id=#{id}
+        select courseware_url
+        from t_courseware
+        where id = #{id}
     </select>
     <select id="downloadCourseWareByIdList" resultType="string">
-        select courseware_url from t_courseware id in <foreach collection="ids" item="id" open="(" close=")">
-        #{ids}
-    </foreach>
+        select courseware_url from t_courseware id in
+        <foreach collection="ids" item="id" open="(" close=")">
+            #{ids}
+        </foreach>
     </select>
-
+    <select id="findCourseWareByCourseWareType" resultType="com.pufaschool.conn.domain.PuFaCourseWare">
+        select id,
+               courseware_name,
+               courseware_url,
+               upload,
+               description,
+               courseware_type,
+               integration,
+               create_time,
+               update_time,
+               is_delete,
+               learn_type
+        from t_courseware
+        where is_delete = 0
+          and courseware_type = #{courseWareTypeId}
+    </select>
+    <select id="findCourseWareByDeleteId" resultType="com.pufaschool.conn.domain.PuFaCourseWare">
+        select id,
+               courseware_name,
+               courseware_url,
+               upload,
+               description,
+               courseware_type,
+               integration,
+               create_time,
+               update_time,
+               is_delete,
+               learn_type
+        from t_courseware
+        where id = #{deleteId}
+          and is_delete = 1
+    </select>
+    <select id="findCourseWareDeleteList" resultType="com.pufaschool.conn.domain.PuFaCourseWare">
+        select id,
+               courseware_name,
+               courseware_url,
+               upload,
+               description,
+               courseware_type,
+               integration,
+               create_time,
+               update_time,
+               is_delete,
+               learn_type
+        from t_courseware
+        where is_delete = 1
+    </select>
+    <delete id="deleteCourseWareByIdList">
+        delete from t_courseware where is_delete=1 and id in
+        <foreach collection="ids" item="id" open="(" close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

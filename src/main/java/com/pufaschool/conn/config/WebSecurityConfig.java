@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/system/puFaSchool/server/loginServer","/system/puFaSchool/server/loginClient").anonymous()
+                .antMatchers("/system/puFaSchool/server/loginServer", "/system/puFaSchool/server/loginClient").anonymous()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
@@ -83,7 +83,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/doc.html")
                 .antMatchers("/error/**")
                 //其他静态资源放行
-                .antMatchers("/system/puFaSchool/server/courseWare/getCourseWareList","/system/puFaSchool/client/**", "/system/puFaSchool/server/user/email/*", "/system/puFaSchool/server/code", "/system/puFaSchool/server/user/addUser", "/image/**", "/html/**", "/upload/**", "/resource/**");
+                .antMatchers("/system/puFaSchool/server/courseWare/getCourseWareList",
+                        "/system/puFaSchool/client/**",
+                        "/system/puFaSchool/server/code",
+                        "/image/**", "/html/**",
+                        "/upload/**",
+                        "/resource/**");
 
     }
 }

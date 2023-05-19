@@ -26,7 +26,9 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
+
         from t_user
         where username = #{username}
           and password = #{password}
@@ -52,6 +54,7 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
         from t_user
         where status = #{status}
@@ -72,13 +75,14 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
         from t_user
     </select>
     <select id="findByUserFiled" parameterType="com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo"
             resultType="com.pufaschool.conn.domain.PuFaUser">
         select id, username, real_name, password, phone_num, avatar, status, email, total_integration, create_time,
-        update_time, is_delete, id_card, native, home_address from t_user
+        update_time, is_delete, id_card, native, highest_role,home_address from t_user
 
         <where>
             <if test="vo.key!=null and vo.key!=''">
@@ -112,7 +116,9 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
+
         from t_user
         where create_time like concat('%', #{date}, '%')
     </select>
@@ -131,6 +137,7 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
         from t_user
     </select>
@@ -149,6 +156,7 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
         from t_user
         where avatar = #{avatar}
@@ -167,6 +175,7 @@
                u.update_time,
                id_card,
                native,
+               highest_role,
                home_address
         from t_user as u
                  inner join t_user_role as ur on u.id = ur.user_id
@@ -194,6 +203,7 @@
                is_delete,
                id_card,
                native,
+               highest_role,
                home_address
         from t_user
         where is_delete = 1
@@ -205,7 +215,7 @@
     </update>
     <select id="findUserByUserAttribute" resultType="com.pufaschool.conn.domain.PuFaUser">
         select id, username, real_name, password, phone_num, avatar, status, email, total_integration, create_time,
-        update_time, is_delete, id_card, native, home_address
+        update_time, is_delete, id_card, highest_role,native, home_address
         from t_user
         where is_delete = 0
         <if test="vo.createTime!=null and vo.createTime!=''">

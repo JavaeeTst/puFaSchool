@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pufaschool.conn.domain.PuFaVideo;
 import com.pufaschool.conn.result.Result;
+import com.pufaschool.conn.result.Status;
 import com.pufaschool.server.service.PuFaVideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,8 +20,45 @@ import java.util.List;
 public class VideoController {
 
     @Autowired
-    private PuFaVideoService videoServicel;
+    private PuFaVideoService videoService;
 
+
+    /**
+     * 清空被删除的视频
+     */
+    @ApiOperation("清空被删除的视频")
+    @DeleteMapping("/deleteVideoByIdList")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    public Result deleteVideoByIdList(@RequestParam("ids")Long[] ids){
+
+        boolean result = videoService.removeVideoByIdList(ids);
+
+        return result?Result.success("删除成功"):Result.error(Status.DELETE_ERR,"删除失败");
+    }
+    /**
+     * 查询所有被删除的视频
+     */
+    @ApiOperation("查询所有被删除的视频")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    @GetMapping("/getVideoByDeleteId/{deleteId}")
+    public Result getVideoDeleteId(@PathVariable Long deleteId){
+
+        PuFaVideo videoByDeleteId = videoService.getVideoByDeleteId(deleteId);
+
+        return Result.success(videoByDeleteId);
+    }
+    /**
+     * 按id查询被删除的视频
+     */
+    @ApiOperation("按id查询被删除的视频")
+    @GetMapping("/getDeleteVideoList")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    public Result getDeleteVideoList(){
+
+        List<PuFaVideo> deleteVideoList = videoService.getDeleteVideoList();
+
+        return Result.success(deleteVideoList);
+    }
 
     /**
      * 模糊查询视频
@@ -30,7 +68,7 @@ public class VideoController {
     @GetMapping("/getVideoByVideoAttribute/{key}")
     public Result getVideoByVideoAttribute(@PathVariable String key){
 
-        List<PuFaVideo> videoByVideoAttribute = videoServicel.getVideoByVideoAttribute(key);
+        List<PuFaVideo> videoByVideoAttribute = videoService.getVideoByVideoAttribute(key);
 
         return Result.success(videoByVideoAttribute);
     }
@@ -49,7 +87,7 @@ public class VideoController {
 
         Page<PuFaVideo> page = new Page<>(firstPage, lastPage);
 
-        IPage<PuFaVideo> pageList = videoServicel.getPageList(page);
+        IPage<PuFaVideo> pageList = videoService.getPageList(page);
 
         return Result.success(pageList);
     }
@@ -68,7 +106,7 @@ public class VideoController {
 
         System.out.println(puFaVideo);
 
-        boolean result = videoServicel.addPuFaVideo(puFaVideo);
+        boolean result = videoService.addPuFaVideo(puFaVideo);
 
         return Result.success(result ? "添加成功" : "添加失败");
     }
@@ -83,7 +121,7 @@ public class VideoController {
 
         System.out.println(id);
 
-        boolean result = videoServicel.deleteVideoById(id);
+        boolean result = videoService.deleteVideoById(id);
 
         return Result.success(result ? "删除成功" : "删除失败");
     }
@@ -96,7 +134,7 @@ public class VideoController {
     @PostMapping("/updateVideoById")
     public Result updateVideoById(@RequestBody PuFaVideo video) {
 
-        boolean result = videoServicel.updateVideoById(video);
+        boolean result = videoService.updateVideoById(video);
 
         return Result.success(result ? "修改成功" : "修改失败");
     }
@@ -108,7 +146,7 @@ public class VideoController {
     @GetMapping("/getVideoById")
     public Result getVideoById(@RequestParam("id") Long id) {
 
-        PuFaVideo videoById = videoServicel.getVideoById(id);
+        PuFaVideo videoById = videoService.getVideoById(id);
 
         return Result.success(videoById);
     }

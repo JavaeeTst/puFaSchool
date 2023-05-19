@@ -21,6 +21,19 @@ public class RoleController {
     @Autowired
     private PuFaRoleService puFaRoleService;
 
+
+    /**
+     * 查询所有角色信息
+     */
+    @ApiOperation("查询所有角色信息")
+    @GetMapping("/getRoleList")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    public Result getRoleList(){
+
+        List<PuFaRole> roleList = puFaRoleService.getRoleList();
+
+        return Result.success(roleList);
+    }
     /**
      * 给用户分配角色(超级管理员)
      *

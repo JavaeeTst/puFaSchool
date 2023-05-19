@@ -14,6 +14,7 @@
                video_cover,
                lecturer,
                learn_type,
+               page_views,
                integration,
                update_time,
                create_time,
@@ -33,6 +34,7 @@
                video_uploader,
                integration,
                learn_type,
+               page_views,
                update_time,
                create_time,
                is_delete
@@ -51,6 +53,7 @@
                integration,
                update_time,
                create_time,
+               page_views,
                is_delete
         from t_video
         where video_path = #{path}
@@ -80,7 +83,54 @@
         from t_video
         where learn_type like concat('%', #{key}, '%')
            or video_name like concat('%', #{key}, '%')
-           or video_uploader like concat('%',#{key},'%')
-           or video_description like concat('%',#{key},'%')
+           or video_uploader like concat('%', #{key}, '%')
+           or video_description like concat('%', #{key}, '%')
     </select>
+    <select id="findVideoByDeleteId" resultType="pufavideo">
+        select id,
+               title,
+               video_path,
+               video_name,
+               video_status,
+               video_explain,
+               video_description,
+               video_uploader,
+               integration,
+               update_time,
+               create_time,
+               is_delete,
+               video_cover,
+               lecturer,
+               learn_type,
+               page_views
+        from t_video
+        where is_delete = 1
+          and id = #{deleteId}
+    </select>
+    <select id="findCourseWareDeleteList" resultType="pufavideo">
+        select id,
+               title,
+               video_path,
+               video_name,
+               video_status,
+               video_explain,
+               video_description,
+               video_uploader,
+               integration,
+               update_time,
+               create_time,
+               is_delete,
+               video_cover,
+               lecturer,
+               learn_type,
+               page_views
+        from t_video
+        where is_delete = 1
+    </select>
+    <delete id="deleteByVideoIdList">
+        delete from t_video where is_delete=1 and id in
+        <foreach collection="ids" item="id" open="(" close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

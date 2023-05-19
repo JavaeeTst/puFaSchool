@@ -3,33 +3,28 @@
 <mapper namespace="com.pufaschool.server.dao.PuFaTextDao">
 
     <select id="findTextByAttribute" resultType="com.pufaschool.conn.domain.PuFaText">
-        select
-        id,
-        description,
-        create_time,
-        upload,
-        text_cover,
-        delete_time,
-        update_time,
-        total_integration,
-        learn_type
+        select id,
+               description,
+               create_time,
+               upload,
+               text_cover,
+               delete_time,
+               update_time,
+               total_integration,
+               learn_type,
+               is_delete,
+               text_tittle,
+               page_views
         from t_text
-        <where>
-            <if test="key!=null and key=''">
-                or description like concat('%',#{key},'%')
-            </if>
-            <if test="key!=null and key=''">
-                or text_info like concat('%',#{key},'%')
-            </if>
-            <if test="key!=null and key=''">
-                or upload like concat('%',#{key},'%')
-            </if>
-            <if test="key!=null and key=''">
-                or learn_type like concat('%',#{key},'%')
-            </if>
-        </where>
+        where id like concat('%', #{key}, '%')
+           or upload like concat('%', #{key}, '%')
+           or learn_type like concat('%', #{key}, '%')
+
+
     </select>
-  <update id="textPageView">
-      update t_text set page_views=page_views+1 where id=#{id}
-  </update>
+    <update id="textPageView">
+        update t_text
+        set page_views=page_views + 1
+        where id = #{id}
+    </update>
 </mapper>

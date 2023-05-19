@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface PuFaRoleDao extends BaseMapper<PuFaRole> {
 
-    //按名称或者用户id查询用户的角色
+    //按名称或者用户id查询用户的角色(内部使用不对外暴露)
     List<PuFaRole> findByUsernameOrUserId(@Param("username") String username, @Param("userId") Long userId);
 
     //给用户分配角色
@@ -23,6 +23,9 @@ public interface PuFaRoleDao extends BaseMapper<PuFaRole> {
 
     //使用角色编码查询角色(项目内部私有不对外暴露)
     PuFaRole findRoleByRoleCode(@Param("roleCode") String roleCode);
+
+    //查询所有角色
+    List<PuFaRole> findRoleList();
 
 }
 

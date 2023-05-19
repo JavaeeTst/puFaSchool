@@ -106,7 +106,7 @@ public class AdminManagerUserLogManager {
                             Object[] args = point.getArgs();
 
                             //在按id查询用户(主要用户日志里面看看删除哪个用户)
-                            PuFaUser userById1 = userService.getUserById((Long) args[0]);
+                            PuFaUser userById1 = userService.getUserByDeleteId((Long) args[0]);
 
                             //最终赋值
                             methodName = "删除用户" + userById1.getUsername();

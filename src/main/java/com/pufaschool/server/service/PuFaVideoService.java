@@ -42,4 +42,13 @@ public interface PuFaVideoService extends IService<PuFaVideo> {
     //模糊查询视频
     List<PuFaVideo> getVideoByVideoAttribute(String key);
 
+    //查询被删除的视频
+    List<PuFaVideo> getDeleteVideoList();
+
+    //按id查询被删除的视频
+    PuFaVideo getVideoByDeleteId(Long deleteId);
+
+    //强制删除视频(清空被删除的视频)
+    boolean removeVideoByIdList(Long[] ids);
+
 }

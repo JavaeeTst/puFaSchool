@@ -17,5 +17,18 @@ public interface PuFaCourseWareDao extends BaseMapper<PuFaCourseWare> {
     //下载课件
     String downloadCourseWareById(@Param("id") Long id);
 
+    //根据课件类型查询课件
+    List<PuFaCourseWare> findCourseWareByCourseWareType(@Param("courseWareTypeId") Long courseWareTypeId);
+
+    //根据id查询被删除的课件
+    PuFaCourseWare findCourseWareByDeleteId(@Param("deleteId")Long deleteId);
+
+    //查询所有被删除的课件
+    List<PuFaCourseWare> findCourseWareDeleteList();
+
+    //清空被删除的课件
+    boolean deleteCourseWareByIdList(Long[] ids);
+
+
 
 }

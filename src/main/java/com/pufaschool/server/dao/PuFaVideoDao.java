@@ -31,5 +31,14 @@ public interface PuFaVideoDao extends BaseMapper<PuFaVideo> {
     //视频模糊查询
     List<PuFaVideo> findVideoByVideoAttribute(@Param("key") String key);
 
+    //查询被删除的视频
+    List<PuFaVideo> findDeleteVideoList();
+
+    //按id查询被删除的视频
+    PuFaVideo findVideoByDeleteId(@Param("deleteId")Long deleteId);
+
+    //强制删除视频
+    boolean deleteByVideoIdList(@Param("ids") Long[] ids);
+
 
 }

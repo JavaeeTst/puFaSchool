@@ -99,7 +99,7 @@ public class CourseWareLogManager {
                     case "deleteById":
 
                         //把传过来的课件id查询一下课件对象
-                        courseWare = wareService.getCourseWareById((Long) point.getArgs()[0]);
+                        courseWare = wareService.getCourseWareByDeleteId((Long) point.getArgs()[0]);
 
                         methodName = "管理员" + userById.getUsername() + "删除了课件名为" + courseWare.getCoursewareName() + "的课件";
 

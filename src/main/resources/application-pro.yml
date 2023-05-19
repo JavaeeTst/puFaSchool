@@ -87,6 +87,8 @@ upload-courseWare: /courseWare
 upload-textIllustration: /text
 #文章封面
 upload-textCover: /text/textCover
+#上传无前科证明
+upload-prove: /prove
 #项目url
 #url-pattern: https://4w1245d049.hsk.top
 #linux地址

@@ -1,8 +1,11 @@
 package com.pufaschool;
 
+import com.pufaschool.conn.domain.PuFaCourseWare;
+import com.pufaschool.server.service.PuFaCourseWareService;
 import com.sun.mail.smtp.DigestMD5;
 import jdk.nashorn.internal.ir.CallNode;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
@@ -17,6 +20,9 @@ import java.util.List;
 
 @SpringBootTest
 public class PuFaTest {
+
+    @Autowired
+    private PuFaCourseWareService wareService;
 
 
     @Test
@@ -147,5 +153,11 @@ public class PuFaTest {
             }
         }
 
+    }
+    @Test
+    public void dd(){
+        PuFaCourseWare courseWareById = wareService.getCourseWareById(1658821510101516289l);
+
+        System.out.println(courseWareById);
     }
 }

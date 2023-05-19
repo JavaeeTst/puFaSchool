@@ -10,6 +10,8 @@ import com.pufaschool.conn.domain.vo.EmailVo;
 import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
 import com.pufaschool.conn.exception.*;
 import com.pufaschool.conn.utils.JWTUtils;
+import com.pufaschool.conn.utils.LogUtil;
+import com.pufaschool.conn.utils.RoleUtil;
 import com.pufaschool.server.dao.PuFaUserDao;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
@@ -22,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
     /**
      * 发送邮箱对象
      */
-    @Autowired
+    @Resource
     private JavaMailSender sender;
 
     /**
@@ -553,6 +556,25 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         List<PuFaUser> deleteUser = baseMapper.findDeleteUser();
 
         return deleteUser;
+    }
+
+    /**
+     * 按id查询被删除的用户
+     * @param deleteId
+     * @return
+     */
+    @Override
+    public PuFaUser getUserByDeleteId(Long deleteId) {
+
+        LambdaQueryWrapper<PuFaUser> wrapper=new LambdaQueryWrapper<>();
+
+        wrapper.eq(BaseEntity::getIsDelete, LogUtil.CONN_NO_CODE);
+
+        wrapper.eq(BaseEntity::getId,deleteId);
+
+        PuFaUser byId = this.getOne(wrapper);
+
+        return byId;
     }
 
     /**

@@ -66,7 +66,20 @@ public class FileController {
     @Value("${upload-textCover}")
     private String uploadTextCover;
 
+    //无前科证明上传
+    @Value("${upload-prove}")
+    private String uploadProve;
 
+
+    /**
+     * 无前科证明上传
+     */
+    @PostMapping("/uploadProve")
+    @ApiOperation("无前科证明上传")
+    public Result uploadProve(@RequestParam("uploadProve") MultipartFile[] files){
+
+        return FileUtil.imageFile(files,uploadPath,uploadMapper,url,uploadProve);
+    }
 
     /**
      * 文章封面上传

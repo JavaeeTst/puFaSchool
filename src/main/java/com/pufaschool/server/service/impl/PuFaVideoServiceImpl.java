@@ -197,4 +197,37 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
 
         return videoByVideoAttribute;
     }
+
+    /**
+     * 查询所有被删除的视频
+     * @return
+     */
+    @Override
+    public List<PuFaVideo> getDeleteVideoList() {
+
+        List<PuFaVideo> deleteVideoList = baseMapper.findDeleteVideoList();
+
+        return deleteVideoList;
+    }
+
+    @Override
+    public PuFaVideo getVideoByDeleteId(Long deleteId) {
+
+        PuFaVideo videoByDeleteId = baseMapper.findVideoByDeleteId(deleteId);
+
+        return videoByDeleteId;
+    }
+
+    /**
+     * 清空被删除的视频
+     * @param ids
+     * @return
+     */
+    @Override
+    public boolean removeVideoByIdList(Long[] ids) {
+
+        boolean result = baseMapper.deleteByVideoIdList(ids);
+
+        return result;
+    }
 }

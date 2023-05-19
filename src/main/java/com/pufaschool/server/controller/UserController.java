@@ -41,6 +41,18 @@ public class UserController {
 
 
     /**
+     * 按id查询被删除的用户
+     */
+    @ApiOperation("按id查询被删除的用户")
+    @GetMapping("/getUserByDeleteId/{deleteId}")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    public Result getUserByDeleteId(@PathVariable Long deleteId){
+
+        PuFaUser userByDeleteId = puFaUserService.getUserByDeleteId(deleteId);
+
+        return Result.success(userByDeleteId);
+    }
+    /**
      * 按用户属性查询用户
      */
     @ApiOperation("按用户属性查询用户")

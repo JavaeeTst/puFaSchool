@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class PuFaRoleServiceImpl extends ServiceImpl<PuFaRoleDao, PuFaRole> impl
     /**
      * user业务层对象
      */
-    @Autowired
+    @Resource
     private PuFaUserDao puFaUserDao;
 
     /**
@@ -58,7 +59,15 @@ public class PuFaRoleServiceImpl extends ServiceImpl<PuFaRoleDao, PuFaRole> impl
         //在按角色id查询角色
         PuFaRole getRoleByRoleId = baseMapper.selectById(roleId);
 
+        //如果分配的是超级管理员抛异常(因为超级管理员只能有一个)
+        PuFaRole roleByRoleCode = baseMapper.findRoleByRoleCode(String.valueOf(roleId));
 
+        if("SUPER_ADMIN".equals(roleByRoleCode.getRoleCode())){
+
+            throw new RoleRepetitionException("超级管理员只能有一个");
+        }
+
+        //如果已经有该角色信息不能重复添加
         for (PuFaRole puFaRole : byUsernameOrUserId) {
 
             if (getRoleByRoleId.equals(puFaRole)) {
@@ -96,5 +105,17 @@ public class PuFaRoleServiceImpl extends ServiceImpl<PuFaRoleDao, PuFaRole> impl
         boolean updateResult = puFaUserDao.modifyUserHighestRole(RoleUtil.USER, vo.getRoleId());
 
         return deleteResult && updateResult;
+    }
+
+    /**
+     * 查询所有角色
+     * @return
+     */
+    @Override
+    public List<PuFaRole> getRoleList() {
+
+        List<PuFaRole> roleList = baseMapper.findRoleList();
+
+        return roleList;
     }
 }

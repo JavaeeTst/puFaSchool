@@ -150,7 +150,7 @@ public class TimeConfig {
 
 
                 //拿到最后的映射路径进行查找
-                PuFaCourseWare courseWareByCourseWarePath = courseWareService.findCourseWareByCourseWarePath(courseWarePath);
+                PuFaCourseWare courseWareByCourseWarePath = courseWareService.getCourseWareByCourseWarePath(courseWarePath);
 
 
 
