@@ -28,7 +28,7 @@ public interface PuFaVideoService extends IService<PuFaVideo> {
     PuFaVideo getVideoById(Long id);
 
     //获取所有的视频(包括删除的)
-    List<PuFaVideo> getVideoAll();
+    List<PuFaVideo> getVideoAllIsDelete();
 
     //按视频路径获取视频(用于清理视频垃圾视频)
     PuFaVideo getVideoByVideoPath(String path);
@@ -50,5 +50,8 @@ public interface PuFaVideoService extends IService<PuFaVideo> {
 
     //强制删除视频(清空被删除的视频)
     boolean removeVideoByIdList(Long[] ids);
+
+    //查询所有视频(未删除的)
+    List<PuFaVideo> getVideoAllNotDelete();
 
 }

@@ -1,12 +1,15 @@
 package com.pufaschool;
 
 import com.pufaschool.conn.domain.PuFaCourseWare;
+import com.pufaschool.conn.domain.PuFaRole;
+import com.pufaschool.server.dao.PuFaRoleDao;
 import com.pufaschool.server.service.PuFaCourseWareService;
 import com.sun.mail.smtp.DigestMD5;
 import jdk.nashorn.internal.ir.CallNode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 
 import java.io.File;
@@ -23,6 +26,26 @@ public class PuFaTest {
 
     @Autowired
     private PuFaCourseWareService wareService;
+
+    @Autowired
+    private PuFaRoleDao roleDao;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Test
+    public void setRoleDao(){
+
+        List<PuFaRole> dmr = roleDao.findByUsernameOrUserId("dmr",null);
+
+        System.out.println(dmr);
+
+        PuFaRole puFaRole = new PuFaRole();
+        puFaRole.setRoleCode("SUPER_ADMIN");
+        puFaRole.setRoleName("super_admin");
+        puFaRole.setDescription("超级管理员");
+        System.out.println(dmr.contains(puFaRole));
+    }
 
 
     @Test
@@ -159,5 +182,14 @@ public class PuFaTest {
         PuFaCourseWare courseWareById = wareService.getCourseWareById(1658821510101516289l);
 
         System.out.println(courseWareById);
+    }
+
+    @Test
+    public void redis(){
+
+        redisTemplate.opsForValue().set("dmr","1234");
+        Boolean dmr = redisTemplate.delete("dmr");
+        System.out.println(dmr);
+        System.out.println(redisTemplate.opsForValue().get("puFaIndex"));
     }
 }

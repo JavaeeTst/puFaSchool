@@ -84,39 +84,21 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new UsernameNotFoundExceptions("没有该用户");
         }
 
-        //取出缓存的角色集合
-        List<PuFaRole> byUsername=(List<PuFaRole>) redisTemplate.opsForValue().get("roleCode");
+        //查询该用户的所有角色
+        List<PuFaRole> byUsername = puFaRoleService.getRoleByUsernameOrUserId(username, null);
 
 
-        //如果缓存没有
-        if(byUsername==null){
-
-            //查询所以的角色
-             byUsername = puFaRoleService.getRoleByUsernameOrUserId(username, null);
-
-            //把角色放入缓存
-            redisTemplate.opsForValue().set("roleCode",byUsername);
-        }
+        //定义一个存放角色的容器
+        List<GrantedAuthority> authorities = new ArrayList<>();
 
 
+        for (PuFaRole puFaRole : byUsername) {
+            //每次查询一个角色就new一个对象
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + puFaRole.getRoleCode());
 
-        //从缓存李取出一个装角色的容器
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) redisTemplate.opsForValue().get("authority");
+            //把角色放入容器里面
+            authorities.add(authority);
 
-        //如果容器为null
-        if(authorities==null){
-
-            //定义一个存放角色的容器
-            authorities=new ArrayList<>();
-
-            for (PuFaRole puFaRole : byUsername) {
-                //每次查询一个角色就new一个对象
-                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + puFaRole.getRoleCode());
-
-                //把角色放入容器里面
-                authorities.add(authority);
-
-            }
         }
 
         LoginUser user = new LoginUser(puFaUser, authorities);

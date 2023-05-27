@@ -35,16 +35,16 @@ public class PuFaVideoCommentServiceImpl extends ServiceImpl<PuFaVideoCommentDao
         List<PuFaVideoComment> commentAll = baseMapper.findCommentAll(vid);
 
 
-        //在遍历所有的评论
-        for (PuFaVideoComment puFaVideoComment : commentAll) {
-
-            //取出id来进行查询用户
-            PuFaUser userById = puFaUserService.getUserById(puFaVideoComment.getUserId());
-
-            //查询到额用户id存入对象里面
-            puFaVideoComment.setUser(userById);
-
-        }
+//        //在遍历所有的评论
+//        for (PuFaVideoComment puFaVideoComment : commentAll) {
+//
+//            //取出id来进行查询用户
+//            PuFaUser userById = puFaUserService.getUserById(puFaVideoComment.getUserId());
+//
+//            //查询到额用户id存入对象里面
+//            puFaVideoComment.setUser(userById);
+//
+//        }
 
         return commentAll;
     }
@@ -59,9 +59,9 @@ public class PuFaVideoCommentServiceImpl extends ServiceImpl<PuFaVideoCommentDao
     @Override
     public boolean addUserComment(PuFaVideoComment comment) {
 
-        int result = baseMapper.insert(comment);
+        boolean result = this.save(comment);
 
-        return result > 0;
+        return result;
     }
 
     /**

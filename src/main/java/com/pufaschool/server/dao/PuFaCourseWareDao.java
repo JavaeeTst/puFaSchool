@@ -3,6 +3,7 @@ package com.pufaschool.server.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pufaschool.conn.domain.PuFaCourseWare;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -28,6 +29,9 @@ public interface PuFaCourseWareDao extends BaseMapper<PuFaCourseWare> {
 
     //清空被删除的课件
     boolean deleteCourseWareByIdList(Long[] ids);
+
+    //查询课件数量（被删除或者未删除）
+    Integer findCourseWareNum(@Param("isDelete") Integer isDelete);
 
 
 

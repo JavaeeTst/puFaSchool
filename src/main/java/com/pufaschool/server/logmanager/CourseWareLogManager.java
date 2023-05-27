@@ -94,6 +94,12 @@ public class CourseWareLogManager {
 
                         logType = LogUtil.ADD_LOG;
 
+                        //实例化日志对象
+                        log = new PuFaLog(userId, methodName, logType);
+
+                        //日志存入数据库
+                        logService.addAdminLog(log);
+
                         break;
                     //删除课件
                     case "deleteById":
@@ -105,15 +111,16 @@ public class CourseWareLogManager {
 
                         logType = LogUtil.DELETE_LOG;
 
-                        break;
+                        //实例化日志对象
+                        log = new PuFaLog(userId, methodName, logType);
 
+                        //日志存入数据库
+                        logService.addAdminLog(log);
+
+                        break;
                 }
 
-                //实例化日志对象
-                log = new PuFaLog(userId, methodName, logType);
 
-                //日志存入数据库
-                logService.addAdminLog(log);
             }else {
 
                 //之后是用户

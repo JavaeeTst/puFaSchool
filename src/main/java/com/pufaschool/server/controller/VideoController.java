@@ -17,7 +17,7 @@ import java.util.List;
 @Api(tags = "普法视频接口(后端)")
 @RestController
 @RequestMapping("/system/puFaSchool/server/video")
-public class VideoController {
+public class   VideoController {
 
     @Autowired
     private PuFaVideoService videoService;

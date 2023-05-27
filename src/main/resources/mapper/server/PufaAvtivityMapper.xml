@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pufaschool.server.dao.PuFaActivityDao">
+
+    <select id="findActiveByStatus" resultType="com.pufaschool.conn.domain.PuFaActive">
+        select id,
+        active_tittle,
+        active_content,
+        active_founder,
+        create_time,
+        update_time,
+        delete_time,
+        is_delete,
+        active_status,
+        activity_name
+        from t_pufa_active
+        where is_delete = 0
+        <if test="vo.activityName!=null and vo.activityName!=''">
+            and activity_name like concat('%',#{vo.activityName},'%')
+        </if>
+        <if test="vo.activityTittle!=null and vo.activityTittle!=''">
+            and active_tittle like concat('%',#{vo.activityTittle},'%')
+        </if>
+        <if test="vo.createTime!=null and vo.createTime!=''">
+            and create_time=#{vo.createTime}
+        </if>
+        <if test="vo.status!=null and vo.status!=''">
+            and active_status=#{vo.status}
+        </if>
+        <if test="vo.activityFounder!=null and vo.activityFounder!=''">
+            and active_founder like concat('%',#{vo.activityFounder},'%')
+        </if>
+    </select>
+
+</mapper>

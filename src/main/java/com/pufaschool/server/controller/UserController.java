@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pufaschool.conn.domain.PuFaUser;
-import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
+import com.pufaschool.conn.domain.queryDomain.SysUserAttributeVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 import com.pufaschool.conn.result.Result;
 import com.pufaschool.conn.result.Status;

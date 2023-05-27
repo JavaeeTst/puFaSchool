@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.EmailVo;
-import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
+import com.pufaschool.conn.domain.queryDomain.SysUserAttributeVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 
 import javax.servlet.http.HttpServletRequest;

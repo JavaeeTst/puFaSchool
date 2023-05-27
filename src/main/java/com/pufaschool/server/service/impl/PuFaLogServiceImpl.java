@@ -114,4 +114,31 @@ public class PuFaLogServiceImpl extends ServiceImpl<PuFaLogDao, PuFaLog> impleme
 
         return adminLogByAdminId;
     }
+
+    /**
+     * 按类型和时间查询管理员日志（时间可以为null）
+     * @param logType
+     * @return
+     */
+    @Override
+    public List<PuFaLog> getAdminLogByLogType(Integer logType,String createTime) {
+
+        List<PuFaLog> adminLogType = baseMapper.findAdminLogType(logType, createTime);
+
+        return adminLogType;
+    }
+
+    /**
+     * 按类型和时间查询用户日志(时间可以为null)
+     * @param logType
+     * @param createTime
+     * @return
+     */
+    @Override
+    public List<PuFaLog> getUserLogByLogType(Integer logType,String createTime) {
+
+        List<PuFaLog> userLogByLogType = baseMapper.findUserLogByLogType(logType, createTime);
+
+        return userLogByLogType;
+    }
 }

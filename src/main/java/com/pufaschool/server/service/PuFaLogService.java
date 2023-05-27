@@ -35,5 +35,11 @@ public interface PuFaLogService extends IService<PuFaLog> {
     //按id查询管理员的个人日志
     List<PuFaLog> getAdminLogByAdminId(Long id);
 
+    //按类型查询管理员日志
+    List<PuFaLog> getAdminLogByLogType(Integer logType,String createTime);
+
+    //按类型查询用户日志
+    List<PuFaLog> getUserLogByLogType(Integer logType,String createTime);
+
 
 }

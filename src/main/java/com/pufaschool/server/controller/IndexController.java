@@ -1,13 +1,16 @@
 package com.pufaschool.server.controller;
 
+import com.pufaschool.conn.domain.PuFaIndex;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.result.Result;
 import com.pufaschool.conn.utils.JWTUtils;
+import com.pufaschool.server.service.PuFaIndexService;
 import com.pufaschool.server.service.PuFaUserService;
 import com.pufaschool.server.service.impl.LoginServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +27,8 @@ public class IndexController {
 
     @Autowired
     private PuFaUserService userService;
+
+
 
 
 
@@ -62,6 +67,7 @@ public class IndexController {
 
 
     }
+
 
 
 

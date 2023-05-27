@@ -7,11 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.BaseEntity;
 import com.pufaschool.conn.domain.PuFaRole;
 import com.pufaschool.conn.domain.vo.EmailVo;
-import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
+import com.pufaschool.conn.domain.queryDomain.SysUserAttributeVo;
 import com.pufaschool.conn.exception.*;
 import com.pufaschool.conn.utils.JWTUtils;
 import com.pufaschool.conn.utils.LogUtil;
 import com.pufaschool.conn.utils.RoleUtil;
+import com.pufaschool.server.dao.PuFaRoleDao;
 import com.pufaschool.server.dao.PuFaUserDao;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
@@ -23,11 +24,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +60,9 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
      */
     @Autowired
     private PuFaRoleService roleService;
+
+    @Resource
+    private PuFaRoleDao roleDao;
 
     /**
      * 用户登录
@@ -171,6 +174,7 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
      * @return
      */
     @Override
+    @Transactional
     public boolean deleteByUserId(Long id) {
 
         //删除之前先看看用户是否被禁用
@@ -181,8 +185,17 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
 
             throw new UserErrorException("该用户已经被禁用,无法删除");
         }
+        boolean result = this.removeById(id);
+        //如果删除成功，缓存的数据也要更新
 
-        return this.removeById(id);
+
+        if(redisTemplate.opsForValue().get("puFaIndex")==null){
+
+                 return result;
+        }
+       boolean puFaIndex = redisTemplate.delete("puFaIndex");
+
+        return result && puFaIndex;
     }
 
     //    /**
@@ -492,16 +505,16 @@ public class PuFaUserServiceImpl extends ServiceImpl<PuFaUserDao, PuFaUser> impl
         Long selfId = Long.valueOf((Long) JWTUtils.checkToken(request.getHeader("token")).get("userId"));
 
         //在查询自己的角色
-        List<PuFaRole> roleCode = (List<PuFaRole>) redisTemplate.opsForValue().get("roleCode");
+        List<PuFaRole> roleCode = roleService.getRoleByUsernameOrUserId(null,selfId);
 
         //如果自己不是超级管理员
-        if(!roleCode.contains("SUPER_ADMIN")){
+        if(!roleCode.contains(roleDao.findRoleByRoleCode(RoleUtil.SUPER_ADMIN_CODE))){
 
             //在看看要冻结用户的角色
             List<PuFaRole> roleByUsernameOrUserId = roleService.getRoleByUsernameOrUserId(null, userId);
 
             //如果被冻结用户是管理员就抛异常
-            if(roleByUsernameOrUserId.contains("ADMIN")){
+            if(roleByUsernameOrUserId.contains(roleDao.findRoleByRoleCode(RoleUtil.ADMIN_CODE))){
 
                 throw new InsufficientAuthorityException("您没有权限禁用(启用)管理员");
             }

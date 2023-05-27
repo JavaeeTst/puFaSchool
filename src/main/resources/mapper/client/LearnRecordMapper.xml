@@ -6,7 +6,7 @@
         select user_id, learn_type, create_time, delete_time, url
         from t_learn_record
         where user_id = #{userId}
-          and learn_type = #{learnType}
+          and learn_type = #{learnTypeId}
     </select>
 
     <select id="findLearnRecordByLearnTypeAndTime" resultType="com.pufaschool.conn.domain.PuFaLearnRecord">

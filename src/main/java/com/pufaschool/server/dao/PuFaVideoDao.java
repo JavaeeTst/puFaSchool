@@ -40,5 +40,8 @@ public interface PuFaVideoDao extends BaseMapper<PuFaVideo> {
     //强制删除视频
     boolean deleteByVideoIdList(@Param("ids") Long[] ids);
 
+    //视频个数（被删除的或者没有）
+    Integer findVideoNum(@Param("isDelete") Integer isDelete);
+
 
 }

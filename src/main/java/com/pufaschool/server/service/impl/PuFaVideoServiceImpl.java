@@ -1,9 +1,11 @@
 package com.pufaschool.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pufaschool.conn.exception.FileFormatException;
+import com.pufaschool.conn.exception.UpdateException;
 import com.pufaschool.server.dao.PuFaVideoDao;
 import com.pufaschool.conn.domain.PuFaVideo;
 import com.pufaschool.conn.domain.PuFaVideoComment;
@@ -82,8 +84,9 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
 
         boolean result = this.removeById(id);
 
-
-        return result;
+         //如果删除成功，缓存的数据也要更新
+        Boolean puFaIndex = redisTemplate.delete("puFaIndex");
+        return result && puFaIndex;
     }
 
     /**
@@ -109,29 +112,30 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
     @Override
     public PuFaVideo getVideoById(Long id) {
 
-        //先查询缓存有没有数据
-        PuFaVideo selectById = (PuFaVideo) redisTemplate.opsForValue().get("selectById");
 
         //没有数据就查数据库在把数据放入缓存
-        if (selectById == null) {
+
             //先查询所有的评论
             List<PuFaVideoComment> commentAll = commentService.getCommentAll(id);
 
             //按id查询视频
             PuFaVideo puFaVideo = baseMapper.selectById(id);
 
+            if(puFaVideo==null){
+
+                throw new UpdateException("请上传正确的视频id");
+            }
             //再把评论放入视频里面
             puFaVideo.setComments(commentAll);
 
             System.out.println(puFaVideo);
 
-            redisTemplate.opsForValue().set("selectById", puFaVideo, 24, TimeUnit.HOURS);
-
-            selectById = (PuFaVideo) redisTemplate.opsForValue().get("selectById");
-        }
 
 
-        return selectById;
+
+
+
+        return puFaVideo;
     }
 
     /**
@@ -140,7 +144,7 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
      * @return
      */
     @Override
-    public List<PuFaVideo> getVideoAll() {
+    public List<PuFaVideo> getVideoAllIsDelete() {
 
         List<PuFaVideo> videoAll = baseMapper.findVideoAll();
 
@@ -229,5 +233,21 @@ public class PuFaVideoServiceImpl extends ServiceImpl<PuFaVideoDao, PuFaVideo> i
         boolean result = baseMapper.deleteByVideoIdList(ids);
 
         return result;
+    }
+
+    /**
+     * 查询所有未删除的视频
+     * @return
+     */
+    @Override
+    public List<PuFaVideo> getVideoAllNotDelete() {
+
+        LambdaQueryWrapper<PuFaVideo> wrapper=new LambdaQueryWrapper<>();
+
+        wrapper.orderByDesc(PuFaVideo::getPageViews);
+
+        List<PuFaVideo> list = this.list(wrapper);
+
+        return list;
     }
 }

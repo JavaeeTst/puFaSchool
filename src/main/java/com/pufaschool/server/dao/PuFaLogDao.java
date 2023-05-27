@@ -32,4 +32,10 @@ public interface PuFaLogDao extends BaseMapper<PuFaLog> {
 
     //按日期查询用户的日志
     List<PuFaLog> findUserLogByTime(@Param("date") Date date);
+
+    //按日志类型查询日志(用户的)
+    List<PuFaLog> findUserLogByLogType(@Param("logType")Integer logType,@Param("createTime")String createTime);
+
+    //按日志类型查询管理员日志
+    List<PuFaLog> findAdminLogType(@Param("logType")Integer logType,@Param("createTime")String createTime);
 }

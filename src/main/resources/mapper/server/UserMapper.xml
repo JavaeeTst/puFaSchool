@@ -9,7 +9,7 @@
              t_role r
         where u.id = ur.user_id
           and r.id = ur.role_id
-          and r.role_code = 'SUPER_ADMIN'
+          and r.role_code = #{role}
     </select>
     <select id="findUserByUsernameAndPassword" resultType="com.pufaschool.conn.domain.PuFaUser">
         select id,
@@ -236,4 +236,23 @@
         set highest_role=#{roleName}
         where id = #{id}
     </update>
+    <select id="findTotalIntegrationAllUser" resultType="double">
+        select sum(total_integration)
+        from t_user
+    </select>
+    <select id="findAdminNum" resultType="integer">
+        select count(*)
+        from t_user as u,
+             t_user_role as ur,
+             t_role as r
+        where u.id = ur.user_id
+          and ur.role_id = r.id
+          and r.role_code = 'ADMIN'
+    </select>
+    <select id="findUserNum" resultType="long">
+        select count(*) from t_user where is_delete=#{isDelete}
+    </select>
+    <select id="findUserByIntegrate" resultType="com.pufaschool.conn.domain.vo.SysUserInfoVo">
+        select real_name,total_integration,username from t_user where total_integration>=300
+    </select>
 </mapper>

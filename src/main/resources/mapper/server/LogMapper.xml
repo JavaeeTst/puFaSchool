@@ -38,5 +38,17 @@
         from t_admin_log
         where user_id = #{id}
     </select>
+    <select id="findUserLogByLogType" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time, log_type from t_user_log where log_type=#{logType}
+        <if test="createTime!=null and createTime!=''">
+           and create_time=#{createTime}
+        </if>
+    </select>
+    <select id="findAdminLogType" resultType="com.pufaschool.conn.domain.PuFaLog">
+        select id, user_id, log_info, create_time, log_type from t_admin_log where log_type=#{logType}
+        <if test="createTime!=null and createTime!=''">
+            and create_time=#{createTime}
+        </if>
+    </select>
 
 </mapper>

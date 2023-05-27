@@ -38,7 +38,6 @@ public class LearnTypeController {
      * @return
      */
     @GetMapping("/getLearnTypeAll")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
     @ApiOperation("查询所有学习类型")
     public Result getLearnTypeAll(){
 

@@ -88,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/system/puFaSchool/server/code",
                         "/image/**", "/html/**",
                         "/upload/**",
-                        "/resource/**");
+                        "/resource/**","/index.html","/static/**","/favicon.ico");
 
     }
 }

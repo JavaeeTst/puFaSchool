@@ -133,4 +133,7 @@
             #{ids}
         </foreach>
     </delete>
+    <select id="findVideoNum" resultType="integer">
+        select count(*) from t_video where is_delete=#{isDelete}
+    </select>
 </mapper>

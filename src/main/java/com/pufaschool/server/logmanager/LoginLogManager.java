@@ -72,13 +72,15 @@ public class LoginLogManager {
 
                  puFaUser=userService.getUserByUsername(puFaUser.getUsername());
 
-                methodName="管理员"+puFaUser.getUsername()+currentDate+"登录普法后台系统";
+                 if(puFaUser!=null){
+                     methodName="管理员"+puFaUser.getUsername()+currentDate+"登录普法后台系统";
 
-                //实例化日志对象
-               log= new PuFaLog(puFaUser.getId(),methodName, LogUtil.LOGIN_LOG);
+                     //实例化日志对象
+                     log= new PuFaLog(puFaUser.getId(),methodName, LogUtil.LOGIN_LOG);
 
-                //存入数据库
-                logService.addAdminLog(log);
+                     //存入数据库
+                     logService.addAdminLog(log);
+                 }
 
                 break;
             case "loginClient":

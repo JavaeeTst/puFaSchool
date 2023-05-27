@@ -22,6 +22,14 @@ public class ControllerException {
 
 
     /**
+     * 用户异常
+     */
+    @ExceptionHandler(UserErrorException.class)
+    public Result userErrorException(UserErrorException e){
+
+        return Result.error(Status.UPDATE_ERR,e.getMessage());
+    }
+    /**
      * 权限不足异常
      */
     @ExceptionHandler(InsufficientAuthorityException.class)

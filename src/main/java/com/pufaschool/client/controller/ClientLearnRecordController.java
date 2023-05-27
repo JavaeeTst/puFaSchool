@@ -35,7 +35,7 @@ public class ClientLearnRecordController {
     @ApiOperation("按学习类型查询学习记录(传学习类型id)")
     public Result getLearnRecordByLearnType(@PathVariable Long learnTypeId) {
 
-        Long userId = Long.valueOf((Integer) JWTUtils.checkToken(request.getHeader("token")).get("userId"));
+        Long userId = (Long) JWTUtils.checkToken(request.getHeader("token")).get("userId");
 
         List<PuFaLearnRecord> learnRecordByLearnType = recordService.findLearnRecordByLearnType(userId, learnTypeId);
 
@@ -51,7 +51,7 @@ public class ClientLearnRecordController {
     @ApiOperation("按学习类型和学习时间查询(传学习类型id和时间)")
     public Result getLearnTypeByLearnTypeAndLearnTime(@RequestParam("learnTypeId") Long learnTypeId, @RequestParam("learnTime") Date learnTime) {
 
-        Long userId = Long.valueOf((Integer) JWTUtils.checkToken(request.getHeader("token")).get("userId"));
+        Long userId = (Long) JWTUtils.checkToken(request.getHeader("token")).get("userId");
 
         List<PuFaLearnRecord> learnRecordByLearnTypeAndTime = recordService.findLearnRecordByLearnTypeAndTime(userId, learnTypeId, learnTime);
 
@@ -66,7 +66,7 @@ public class ClientLearnRecordController {
     @ApiOperation("添加学习记录")
     public Result addLearnRecord(@RequestBody PuFaLearnRecord record) {
 
-        Long userId = Long.valueOf((Integer) JWTUtils.checkToken(request.getHeader("token")).get("userId"));
+        Long userId = (Long) JWTUtils.checkToken(request.getHeader("token")).get("userId");
 
         boolean result = recordService.addLearnRecord(record);
 

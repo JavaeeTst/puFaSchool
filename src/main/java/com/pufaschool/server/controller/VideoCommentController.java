@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+@Api(tags = "普法用户评论")
 @RestController
-@RequestMapping("/system/puFuSchool/server/comment")
-@Api(tags = "普法视频评论")
+@RequestMapping("/system/puFaSchool/server/comment")
 public class VideoCommentController {
 
     @Autowired
@@ -29,7 +30,7 @@ public class VideoCommentController {
     @ApiOperation("用户评论")
     public Result addComment(@RequestBody PuFaVideoComment comment,HttpServletRequest request) {
 
-        Long userId= Long.valueOf((Integer)JWTUtils.checkToken(request.getHeader("token")).get("userId"));
+        Long userId= (Long) JWTUtils.checkToken(request.getHeader("token")).get("userId");
 
         comment.setUserId(userId);
 

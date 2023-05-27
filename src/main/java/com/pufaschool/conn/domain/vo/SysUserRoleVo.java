@@ -19,6 +19,7 @@ public class SysUserRoleVo implements Serializable {
     private Long userId;
 
     //角色id
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long roleId;
 
     //是否取消

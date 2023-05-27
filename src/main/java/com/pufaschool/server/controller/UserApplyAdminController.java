@@ -58,6 +58,6 @@ public class UserApplyAdminController {
 
         boolean result = applyAdminService.modifyUserApplyAdminReviewsStatusById(status, id, userId);
 
-        return result?Result.success(status==1?"拒绝成功":"同意"):Result.error(Status.ERROR,status==1?"拒绝失败":"拒接");
+        return result?Result.success(status==1?"拒绝成功":"同意"):Result.error(Status.ERROR,status==1?"拒绝失败":"拒绝成功");
     }
 }

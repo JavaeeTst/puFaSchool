@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pufaschool.conn.domain.PuFaUser;
 import com.pufaschool.conn.domain.vo.EmailVo;
-import com.pufaschool.conn.domain.vo.SysUserAttributeVo;
+import com.pufaschool.conn.domain.queryDomain.SysUserAttributeVo;
+import com.pufaschool.conn.domain.vo.SysUserInfoVo;
 import com.pufaschool.conn.domain.vo.SysUserUpdatePasswordVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -62,7 +63,20 @@ public interface PuFaUserDao extends BaseMapper<PuFaUser> {
     boolean modifyUserHighestRole(@Param("highestRole") String highestRole,@Param("id") Long id);
 
     //查询超级管理员信息(只允许在项目中私有,不对外暴露)
-    PuFaUser findUserByUserRole();
+    PuFaUser findUserByUserRole(@Param("role")String role);
+
+    //记录所有用户的积分
+    Double findTotalIntegrationAllUser();
+
+    //查询管理员数量
+    Integer findAdminNum();
+
+    //查询用户量
+    Long findUserNum(@Param("isDelete") Integer isDelete);
+
+    //查询用户积分和用户名(积分大于300的不对外暴露接口只用于业务)
+    List<SysUserInfoVo> findUserByIntegrate();
+
 
 
 }

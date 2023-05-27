@@ -1,4 +1,4 @@
-package com.pufaschool.conn.domain.vo;
+package com.pufaschool.conn.domain.queryDomain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;

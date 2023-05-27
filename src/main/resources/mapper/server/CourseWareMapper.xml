@@ -67,4 +67,9 @@
             #{ids}
         </foreach>
     </delete>
+    <select id="findCourseWareNum" resultType="integer">
+        select count(*)
+        from t_courseware
+        where is_delete = #{isDelete}
+    </select>
 </mapper>

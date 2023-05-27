@@ -21,16 +21,27 @@ public class ClientPuFaVideoController {
 
 
     @Autowired
-    private ClientPuFaVideoService puFaVideoService;
+    private PuFaVideoService puFaVideoService;
 
-    @Autowired
-    private PuFaVideoService videoService;
 
-    @GetMapping("/getVideoList")
-    @ApiOperation("获取所有的视频")
+    /**
+     * 查询所有未删除的视频
+     * @return
+     */
+    @GetMapping("/getVideoNotDelete")
+    @ApiOperation("查询所有未删除的视频")
+    public Result getVideoAllNotDelete(){
+
+        List<PuFaVideo> videoAllNotDelete = puFaVideoService.getVideoAllNotDelete();
+
+        return Result.success(videoAllNotDelete);
+    }
+
+    @GetMapping("/getVideoIsDelete")
+    @ApiOperation("获取所有的视频(包括删除的)")
     public Result getVideoList(){
 
-        List<PuFaVideo> videoList = puFaVideoService.getVideoList();
+        List<PuFaVideo> videoList = puFaVideoService.getVideoAllIsDelete();
 
         return Result.success(videoList);
 
@@ -43,7 +54,7 @@ public class ClientPuFaVideoController {
     @ApiOperation("模糊查询视频")
     public Result getVideoByKey(@RequestParam("key")String key){
 
-        List<PuFaVideo> videoByKey = puFaVideoService.getVideoByKey(key);
+        List<PuFaVideo> videoByKey = puFaVideoService.getVideoByVideoAttribute(key);
 
         return Result.success(videoByKey);
     }
@@ -54,7 +65,7 @@ public class ClientPuFaVideoController {
     @ApiOperation("用户点击视频查询视频信息(传视频id)")
     public Result getVideoByVideoId(@PathVariable Long videoId){
 
-        PuFaVideo videoByVideoId = puFaVideoService.getVideoByVideoId(videoId);
+        PuFaVideo videoByVideoId = puFaVideoService.getVideoById(videoId);
 
         return Result.success(videoByVideoId);
     }
@@ -65,9 +76,11 @@ public class ClientPuFaVideoController {
     @ApiOperation("视频浏览量+1(每过5分钟发送一次请求)")
     public void videoPageViews(@PathVariable Long id){
 
-        videoService.videoPageViews(id);
+        puFaVideoService.videoPageViews(id);
 
     }
+
+
 
 
 }

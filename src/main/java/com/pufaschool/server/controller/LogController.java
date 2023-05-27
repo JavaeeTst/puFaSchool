@@ -20,6 +20,30 @@ public class LogController {
     @Autowired
     private PuFaLogService logService;
 
+    /**
+     * 按类型和时间查询用户的日志(时间可以为null)
+     */
+    @ApiOperation("按时间和类型查询用户员日志(时间可以为null)")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    @GetMapping("/getUserLogByLogTypeOrCreateTime/{logType}/{createTime}")
+    public Result getUserLogByLogTypeOrCreateTime(@PathVariable Integer logType,String createTime){
+
+        List<PuFaLog> userLogByLogType = logService.getUserLogByLogType(logType, createTime);
+
+        return Result.success(userLogByLogType);
+    }
+    /**
+     * 按类型和时间查询管理员的日志（时间可以为null）
+     */
+    @ApiOperation("按时间和类型查询管理员日志(时间可以为null)")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    @GetMapping("/getAdminLogByLogTypeOrCreateTime/{logType}/{createTime}")
+    public Result getAdminLogByLogTypeOrCreateTime(@PathVariable Integer logType,@PathVariable String createTime){
+
+        List<PuFaLog> adminLogByLogType = logService.getAdminLogByLogType(logType, createTime);
+
+        return Result.success(adminLogByLogType);
+    }
 
     /**
      * 查询所有的用户的日志
