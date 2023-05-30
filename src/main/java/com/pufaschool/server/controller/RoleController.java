@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -70,13 +71,13 @@ public class RoleController {
      */
     @ApiOperation("冻结/解放用户角色接口")
     @PostMapping("/updateByUserIdAndRoleId")
-    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
-    public Result updateByUserIdAndRoleId(@RequestBody SysUserRoleVo vo) {
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    public Result updateByUserIdAndRoleId(@RequestBody SysUserRoleVo vo, HttpServletRequest request) {
 
         if (vo.getIsCancel() == null) {
             vo.setIsCancel(1);
         }
-        boolean result = puFaRoleService.updateByUserIdAndRoleId(vo);
+        boolean result = puFaRoleService.updateByUserIdAndRoleId(vo,request);
 
         return result ? Result.success(vo.getIsCancel() == 0 ? "启用成功" : "禁用成功") : Result.error(Status.ERROR, vo.getIsCancel() == 0 ? "启用失败" : "禁用失败");
     }

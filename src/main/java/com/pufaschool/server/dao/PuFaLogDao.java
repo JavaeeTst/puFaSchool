@@ -2,6 +2,7 @@ package com.pufaschool.server.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pufaschool.conn.domain.PuFaLog;
+import com.pufaschool.conn.domain.queryDomain.SysLogAttributeVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -21,21 +22,11 @@ public interface PuFaLogDao extends BaseMapper<PuFaLog> {
     //查询所有用户的日志记录
     List<PuFaLog> findUserLogAll();
 
-    //查询用户个人的日志记录
-    List<PuFaLog> findUserLogByUserId(@Param("id") Long id);
+    //按属性查询用户日志（用户id,创建时间,日志类型）
+    List<PuFaLog> findUserLogByAttribute(@Param("vo")SysLogAttributeVo vo);
 
-    //查询管理员个人的日志记录
-    List<PuFaLog> findAdminLogByAdminId(@Param("id") Long id);
+    //按属性查询管理员日志(管理员id,创建时间，日志类型)
+    List<PuFaLog> findAdminLogByAttribute(@Param("vo")SysLogAttributeVo vo);
 
-    //按日期查询管理员日志
-    List<PuFaLog> findAdminLogByTime(@Param("date")Date date);
 
-    //按日期查询用户的日志
-    List<PuFaLog> findUserLogByTime(@Param("date") Date date);
-
-    //按日志类型查询日志(用户的)
-    List<PuFaLog> findUserLogByLogType(@Param("logType")Integer logType,@Param("createTime")String createTime);
-
-    //按日志类型查询管理员日志
-    List<PuFaLog> findAdminLogType(@Param("logType")Integer logType,@Param("createTime")String createTime);
 }

@@ -2,6 +2,7 @@ package com.pufaschool.server.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pufaschool.conn.domain.PuFaLog;
+import com.pufaschool.conn.domain.queryDomain.SysLogAttributeVo;
 
 import java.util.Date;
 import java.util.List;
@@ -23,23 +24,11 @@ public interface PuFaLogService extends IService<PuFaLog> {
     //查询所有的管理员日志记录
     List<PuFaLog> getAdminLogAll();
 
-    //按时间查询管理员日志
-    List<PuFaLog> getAdminLogByTime(Date date);
+    //按属性查询管理员日志(传管理员id,日志创建时间,日志类型)
+    List<PuFaLog> getUserLogByAttribute(SysLogAttributeVo vo);
 
-    //按时间查询用户日志
-    List<PuFaLog> getUserLogByTime(Date date);
-
-    //按id查询用户的个人日志
-    List<PuFaLog> getUserLogByUserId(Long id);
-
-    //按id查询管理员的个人日志
-    List<PuFaLog> getAdminLogByAdminId(Long id);
-
-    //按类型查询管理员日志
-    List<PuFaLog> getAdminLogByLogType(Integer logType,String createTime);
-
-    //按类型查询用户日志
-    List<PuFaLog> getUserLogByLogType(Integer logType,String createTime);
+    //按属性查询用户的日志(传用户id,日志创建时间,日志类型)
+    List<PuFaLog> getAdminByAttribute(SysLogAttributeVo vo);
 
 
 }

@@ -1,6 +1,7 @@
 package com.pufaschool.server.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pufaschool.conn.domain.queryDomain.SysLogAttributeVo;
 import com.pufaschool.server.dao.PuFaLogDao;
 import com.pufaschool.conn.domain.PuFaLog;
 import com.pufaschool.server.service.PuFaLogService;
@@ -64,81 +65,31 @@ public class PuFaLogServiceImpl extends ServiceImpl<PuFaLogDao, PuFaLog> impleme
     }
 
     /**
-     * 按时间查询管理员日志
-     * @param date
+     * 按属性查询用户日志
+     * @param vo
      * @return
      */
     @Override
-    public List<PuFaLog> getAdminLogByTime(Date date) {
+    public List<PuFaLog> getUserLogByAttribute(SysLogAttributeVo vo) {
 
-        List<PuFaLog> adminLogByTime = baseMapper.findAdminLogByTime(date);
+        List<PuFaLog> userLogByAttribute = baseMapper.findUserLogByAttribute(vo);
 
-        return adminLogByTime;
+        return userLogByAttribute;
     }
 
     /**
-     * 按时间查询用户的日志
-     * @param date
+     * 按属性查询管理员日志
+     * @param vo
      * @return
      */
     @Override
-    public List<PuFaLog> getUserLogByTime(Date date) {
+    public List<PuFaLog> getAdminByAttribute(SysLogAttributeVo vo) {
 
-        List<PuFaLog> userLogByTime = baseMapper.findUserLogByTime(date);
+        List<PuFaLog> adminLogByAttribute = baseMapper.findAdminLogByAttribute(vo);
 
-        return userLogByTime;
+
+        return adminLogByAttribute;
     }
 
-    /**
-     * 按用户id查询用户的个人日志
-     * @param id
-     * @return
-     */
-    @Override
-    public List<PuFaLog> getUserLogByUserId(Long id) {
 
-        List<PuFaLog> userLogByUserId = baseMapper.findUserLogByUserId(id);
-
-        return userLogByUserId;
-    }
-
-    /**
-     * 按管理员id查询管理员的个人日志
-     * @param id
-     * @return
-     */
-    @Override
-    public List<PuFaLog> getAdminLogByAdminId(Long id) {
-
-        List<PuFaLog> adminLogByAdminId = baseMapper.findAdminLogByAdminId(id);
-
-        return adminLogByAdminId;
-    }
-
-    /**
-     * 按类型和时间查询管理员日志（时间可以为null）
-     * @param logType
-     * @return
-     */
-    @Override
-    public List<PuFaLog> getAdminLogByLogType(Integer logType,String createTime) {
-
-        List<PuFaLog> adminLogType = baseMapper.findAdminLogType(logType, createTime);
-
-        return adminLogType;
-    }
-
-    /**
-     * 按类型和时间查询用户日志(时间可以为null)
-     * @param logType
-     * @param createTime
-     * @return
-     */
-    @Override
-    public List<PuFaLog> getUserLogByLogType(Integer logType,String createTime) {
-
-        List<PuFaLog> userLogByLogType = baseMapper.findUserLogByLogType(logType, createTime);
-
-        return userLogByLogType;
-    }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.pufaschool.conn.domain.PuFaRole;
 import com.pufaschool.conn.domain.vo.SysUserRoleVo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface PuFaRoleService extends IService<PuFaRole> {
     boolean assignRole(Long roleId, Long userId);
 
     //取消用户管理员角色
-    boolean updateByUserIdAndRoleId(SysUserRoleVo vo);
+    boolean updateByUserIdAndRoleId(SysUserRoleVo vo, HttpServletRequest request);
 
     //查询所有角色
     List<PuFaRole> getRoleList();

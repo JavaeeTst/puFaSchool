@@ -233,7 +233,7 @@
     </select>
     <update id="modifyUserHighestRole">
         update t_user
-        set highest_role=#{roleName}
+        set highest_role=#{highestRole}
         where id = #{id}
     </update>
     <select id="findTotalIntegrationAllUser" resultType="double">
